@@ -12,9 +12,9 @@ namespace Alesik.Haidov.Airforce
             Console.WriteLine($"------ US Air Forces bases ------\n");
 
 
-            foreach (var airforceBase in blc.GetAllAirforceBases())
+            foreach (var Airbase in blc.GetAllAirbases())
             {
-                Console.WriteLine($"Name: {airforceBase.Name}\nLocation: {airforceBase.Location}\n");
+                Console.WriteLine($"Name: {Airbase.Name}\nLocation: {Airbase.Location}\n");
             }
 
             Console.WriteLine($"\n------ US Air Forces planes ------\n");

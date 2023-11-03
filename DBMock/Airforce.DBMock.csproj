@@ -6,7 +6,6 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<RootNamespace>Alesik.Haidov.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
-		<!--<AssemblyName>Alesik.Haidov.$(MSBuildProjectName)</AssemblyName>-->
 	</PropertyGroup>
 
 	<ItemGroup>

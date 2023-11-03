@@ -1,11 +1,6 @@
 ﻿using Alesik.Haidov.Airforce.Core;
 using Alesik.Haidov.Airforce.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Alesik.Haidov.Airforce.BLC
 {
@@ -15,66 +10,72 @@ namespace Alesik.Haidov.Airforce.BLC
 
         public BLC(string dllPath)
         {
-            Type? typeToCreate = null;
-            Assembly assembly = Assembly.UnsafeLoadFrom(dllPath);
+            var typeToCreate = FindDAOType(dllPath);
 
-            foreach (Type type in assembly.GetTypes())
+            if (typeToCreate != null)
             {
-                if (type.IsAssignableTo(typeof(IDAO)))
+                dao = CreateDAOInstance(typeToCreate);
+            }
+            else
+            {
+                throw new InvalidOperationException("No compatible IDAO type found in assembly.");
+            }
+        }
+
+        #region Handle DAO 
+        private Type FindDAOType(string dllPath)
+        {
+            try
+            {
+                var assembly = Assembly.UnsafeLoadFrom(dllPath);
+                foreach (var type in assembly.GetTypes())
                 {
-                    typeToCreate = type;
-                    break;
+                    if (typeof(IDAO).IsAssignableTo(type))
+                    {
+                        return type;
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to load assembly or find IDAO: " + ex.Message);
+                throw;
+            }
 
-            dao = (IDAO)Activator.CreateInstance(typeToCreate);
-
-
+            return null;
         }
 
-        public IEnumerable<IAircraft> GetAllAircrafts()
+        private IDAO CreateDAOInstance(Type daoType)
         {
-            return dao.GetAllAircrafts();
+            try
+            {
+                return (IDAO)Activator.CreateInstance(daoType);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to create instance of IDAO: {daoType.Name}\n{ex.Message}");
+                throw;
+            }
         }
+        #endregion
 
-        public IEnumerable<IAirforceBase> GetAllAirforceBases()
-        {
-            return dao.GetAllAirforceBases();
-        }
+        public IEnumerable<IAircraft> GetAllAircrafts() => dao.GetAllAircrafts();
 
-        public IEnumerable<IAircraft> GetAircraft(string guid)
-        {
-            return dao.GetAllAircrafts().Where(aircraft => aircraft.GUID.Equals(guid));
-        }
+        public IEnumerable<IAirforceBase> GetAllAirforceBases() => dao.GetAllAirforceBases();
 
-        public IEnumerable<IAirforceBase> GetAirforceBase(string guid)
-        {
-            return dao.GetAllAirforceBases().Where(airbase => airbase.GUID.Equals(guid));
-        }
+        public IEnumerable<IAircraft> GetAircraft(string guid) => dao.GetAllAircrafts().Where(aircraft => aircraft.GUID.Equals(guid));
 
-        public IEnumerable<IAircraft> GetAircraftByModel(string model)
-        {
-            return dao.GetAllAircrafts().Where(aircraft => aircraft.Model.Equals(model));
-        }
+        public IEnumerable<IAirforceBase> GetAirforceBase(string guid) => dao.GetAllAirforceBases().Where(airbase => airbase.GUID.Equals(guid));
 
-        public IEnumerable<IAircraft> GetAircraft(AircraftType type)
-        {
-            return dao.GetAllAircrafts().Where(aircraft => aircraft.Type.Equals(type));
-        }
+        public IEnumerable<IAircraft> GetAircraftByModel(string model) => dao.GetAllAircrafts().Where(aircraft => aircraft.Model.Equals(model));
 
-        public IEnumerable<IAirforceBase> GetAirforceBaseByName(string name)
-        {
-            return dao.GetAllAirforceBases().Where(airbase => airbase.Name.Equals(name));
-        }
+        public IEnumerable<IAircraft> GetAircraft(AircraftType type) => dao.GetAllAircrafts().Where(aircraft => aircraft.Type.Equals(type));
 
-        public void RemoveAircraft(string guid)
-        {
-            dao.RemoveAircraft(guid);
-        }
-        public void RemoveAirforceBase(string guid)
-        {
-            dao.RemoveAirforceBase(guid);
-        }
+        public IEnumerable<IAirforceBase> GetAirforceBaseByName(string name) => dao.GetAllAirforceBases().Where(airbase => airbase.Name.Equals(name));
+
+        public void RemoveAircraft(string guid) => dao.RemoveAircraft(guid);
+
+        public void RemoveAirforceBase(string guid) => dao.RemoveAirforceBase(guid);
 
         public void CreateOrUpdateAircraft(IAircraft aircraft)
         {

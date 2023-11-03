@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Alesik.Haidov.Airforce.ViewModels
+namespace Alesik.Haidov.Airforce.UI.ViewModels
 {
     internal class AircraftViewModel
     {

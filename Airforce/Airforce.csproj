@@ -6,7 +6,7 @@
 		<UseWPF>true</UseWPF>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<RootNamespace>Alesik.Haidov.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+		<RootNamespace>Alesik.Haidov.$(MSBuildProjectName.Replace(" ", "_")).UI</RootNamespace>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -16,6 +16,10 @@
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0-rc.2.23479.6" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Include="App.xaml" />
 	</ItemGroup>
 
 	<ItemGroup>

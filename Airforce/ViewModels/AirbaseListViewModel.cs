@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Alesik.Haidov.Airforce.UI.ViewModels
 {
-    internal class AirbaseViewModel
+    internal class AirbaseListViewModel
     {
     }
 }

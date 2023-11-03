@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace Alesik.Haidov.Airforce
+namespace Alesik.Haidov.Airforce.UI
 {
     internal class Program
     {

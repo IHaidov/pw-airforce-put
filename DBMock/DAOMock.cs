@@ -1,6 +1,6 @@
 ﻿using Alesik.Haidov.Airforce.Interfaces;
 
-namespace Alesik.Haidov.Airforce.AirforceDBMock
+namespace Alesik.Haidov.Airforce.DBMock
 {
     public class DAOMock : IDAO
     {

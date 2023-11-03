@@ -1,7 +1,7 @@
 ﻿using Alesik.Haidov.Airforce.Core;
 using Alesik.Haidov.Airforce.Interfaces;
 
-namespace Alesik.Haidov.Airforce.AirforceDBMock
+namespace Alesik.Haidov.Airforce.DBMock
 {
     [Serializable]
     public class AircraftDBMock : IAircraft

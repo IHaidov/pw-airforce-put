@@ -30,7 +30,7 @@ namespace Alesik.Haidov.Airforce.BLC
                 var assembly = Assembly.UnsafeLoadFrom(dllPath);
                 foreach (var type in assembly.GetTypes())
                 {
-                    if (typeof(IDAO).IsAssignableTo(type))
+                    if (typeof(IDAO).IsAssignableFrom(type))
                     {
                         return type;
                     }

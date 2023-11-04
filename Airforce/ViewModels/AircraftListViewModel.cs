@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Alesik.Haidov.Airforce.UI.ViewModels
 {
-    internal class AircraftListViewModel
+    public class AircraftListViewModel
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 

@@ -5,8 +5,56 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Alesik.Haidov.Airforce.UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Airforce window" Width="800" MinHeight="500" SizeToContent="Height"
+        Name="Window">
     <Grid>
-        
+        <TabControl>
+            <TabItem Header="Aircrafts">
+                <StackPanel Margin="10,0,10,0">
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Airbases">
+                <StackPanel Margin="10,0,10,0">
+                    <TextBlock Text="{Binding AircraftGUID}"></TextBlock>
+                    <TextBlock Text="{Binding AircraftModel}"></TextBlock>
+                    <TextBlock Text="{Binding AircraftType}"></TextBlock>
+                    <TextBlock Text="{Binding AircraftServiceHours}"></TextBlock>
+                    <TextBlock Text="{Binding AircraftAirbase}"></TextBlock>
+                    <Button Margin="0,0,0,5" Click="EditAircraft">Edit selected aircraft</Button>
+                    <Button Margin="0,0,0,5" Click="RemoveAircraft">Remove selected aircraft</Button>
+                    <Button Margin="0,0,0,5" Click="AddAircraft">Add new aircraft</Button>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="5" Padding="2">Data source (.dll):</TextBlock>
+                        <TextBox Margin="5" Padding="2" Name="datasource" MinWidth="100">AirforceDBMock.dll</TextBox>
+                        <Button Margin="5" Padding="2" Click="ApplyNewDataSource">Apply</Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="5" Padding="2">Filter by service hours:</TextBlock>
+                        <TextBox Margin="5" Padding="2" Name="aircraftServiceHoursFilterField" MinWidth="100"></TextBox>
+                        <Button Margin="5" Padding="2" Click="ApplyAircraftServiceHoursFilter">Apply filter</Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="5" Padding="2">Filter by model name:</TextBlock>
+                        <TextBox Margin="5" Padding="2" Name="aircraftModelFilterField" MinWidth="100"></TextBox>
+                        <Button Margin="5" Padding="2" Click="ApplyAircraftModelFilter">Apply filter</Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="5" Padding="2">Search by GUID:</TextBlock>
+                        <TextBox Margin="5" Padding="2" Name="aircraftSearchField" MinWidth="300"></TextBox>
+                        <Button Margin="5" Padding="2" Click="ApplyAircraftSearch">Search</Button>
+                    </StackPanel>
+                    <ListBox Margin="0,5,0,10" Name="AircraftList" SelectionChanged="AircraftList_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding ElementName=Window, Path=AircraftsLVM.Aircrafts}" Height="300">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="{Binding AircraftModel}" Width="100"/>
+                                    <Label Content="{Binding AircraftAirbase}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

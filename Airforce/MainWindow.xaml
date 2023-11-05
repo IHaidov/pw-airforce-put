@@ -16,24 +16,24 @@
             <TabItem Header="Aircrafts">
                 <StackPanel Margin="10,0,10,0">
                     <TextBlock>
-                        <Run Text="GUID: "/>
+                        <Run Text="GUID: " FontWeight="Bold"/>
                         <Run Text="{Binding AircraftGUID}"/>
                     </TextBlock>
                     <TextBlock >
-                        <Run Text="Model: "/>
+                        <Run Text="Model: " FontWeight="Bold"/>
                         <Run Text="{Binding AircraftModel}"/>
                     </TextBlock>
                     <TextBlock >
-                        <Run Text="Type: "/>
+                        <Run Text="Type: " FontWeight="Bold"/>
                         <Run Text="{Binding AircraftType}"/>
                     </TextBlock>
                     <TextBlock >
-                        <Run Text="Service hours: "/>
+                        <Run Text="Service hours: " FontWeight="Bold"/>
                         <Run Text="{Binding AircraftServiceHours}"/>
                     </TextBlock>
                     <TextBlock >
-                        <Run Text="Airbase location: "/>
-                        <Run Text="{Binding AircraftAirbase.AircraftBase}"/>
+                        <Run Text="Airbase location: " FontWeight="Bold"/>
+                        <Run Text="{Binding AircraftBase}"/>
                     </TextBlock>
                     <Button Margin="0,0,0,5" Click="EditAircraft">Edit selected aircraft</Button>
                     <Button Margin="0,0,0,5" Click="RemoveAircraft">Remove selected aircraft</Button>
@@ -58,16 +58,31 @@
                         <TextBox Margin="5" Padding="2" Name="aircraftSearchField" MinWidth="300"></TextBox>
                         <Button Margin="5" Padding="2" Click="ApplyAircraftSearch">Search</Button>
                     </StackPanel>
-                    <ListBox Margin="0,5,0,10" Name="AircraftList" SelectionChanged="AircraftList_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding ElementName=Window, Path=AircraftLVM.Aircrafts}" Height="300">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="{Binding AircraftModel}" Width="100"/>
-                                    <Label Content="{Binding AircraftAirbase.AircraftBase}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                    <ListView Margin="0,5,0,10" Name="AircraftList" SelectionChanged="AircraftList_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding ElementName=Window, Path=AircraftLVM.Aircrafts}" Height="300">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Model name" Width="{Binding ElementName=ModelNameColumnWidth, Path=Text}">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding AircraftModel}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Base location" Width="{Binding ElementName=BaseLocationColumnWidth, Path=Text}">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding AircraftBase}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <TextBox Name="ModelNameColumnWidth" Visibility="Collapsed" Text="150" />
+                    <!-- Hidden TextBox to bind width -->
+                    <TextBox Name="BaseLocationColumnWidth" Visibility="Collapsed" Text="150" />
+                    <!-- Hidden TextBox to bind width -->
+
                 </StackPanel>
             </TabItem>
         </TabControl>

@@ -9,17 +9,32 @@
         Name="Window">
     <Grid>
         <TabControl>
-            <TabItem Header="Aircrafts">
+            <TabItem Header="Airbases">
                 <StackPanel Margin="10,0,10,0">
                 </StackPanel>
             </TabItem>
-            <TabItem Header="Airbases">
+            <TabItem Header="Aircrafts">
                 <StackPanel Margin="10,0,10,0">
-                    <TextBlock Text="{Binding AircraftGUID}"></TextBlock>
-                    <TextBlock Text="{Binding AircraftModel}"></TextBlock>
-                    <TextBlock Text="{Binding AircraftType}"></TextBlock>
-                    <TextBlock Text="{Binding AircraftServiceHours}"></TextBlock>
-                    <TextBlock Text="{Binding AircraftAirbase}"></TextBlock>
+                    <TextBlock>
+                        <Run Text="GUID: "/>
+                        <Run Text="{Binding AircraftGUID}"/>
+                    </TextBlock>
+                    <TextBlock >
+                        <Run Text="Model: "/>
+                        <Run Text="{Binding AircraftModel}"/>
+                    </TextBlock>
+                    <TextBlock >
+                        <Run Text="Type: "/>
+                        <Run Text="{Binding AircraftType}"/>
+                    </TextBlock>
+                    <TextBlock >
+                        <Run Text="Service hours: "/>
+                        <Run Text="{Binding AircraftServiceHours}"/>
+                    </TextBlock>
+                    <TextBlock >
+                        <Run Text="Airbase location: "/>
+                        <Run Text="{Binding AircraftAirbase.AircraftBase}"/>
+                    </TextBlock>
                     <Button Margin="0,0,0,5" Click="EditAircraft">Edit selected aircraft</Button>
                     <Button Margin="0,0,0,5" Click="RemoveAircraft">Remove selected aircraft</Button>
                     <Button Margin="0,0,0,5" Click="AddAircraft">Add new aircraft</Button>
@@ -43,12 +58,12 @@
                         <TextBox Margin="5" Padding="2" Name="aircraftSearchField" MinWidth="300"></TextBox>
                         <Button Margin="5" Padding="2" Click="ApplyAircraftSearch">Search</Button>
                     </StackPanel>
-                    <ListBox Margin="0,5,0,10" Name="AircraftList" SelectionChanged="AircraftList_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding ElementName=Window, Path=AircraftsLVM.Aircrafts}" Height="300">
+                    <ListBox Margin="0,5,0,10" Name="AircraftList" SelectionChanged="AircraftList_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding ElementName=Window, Path=AircraftLVM.Aircrafts}" Height="300">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <Label Content="{Binding AircraftModel}" Width="100"/>
-                                    <Label Content="{Binding AircraftAirbase}"/>
+                                    <Label Content="{Binding AircraftAirbase.AircraftBase}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

@@ -10,6 +10,11 @@ namespace Alesik.Haidov.Airforce.BLC
 
         public BLC(string dllPath)
         {
+            LoadLibrary(dllPath);
+        }
+
+        public void LoadLibrary(string dllPath)
+        {
             var typeToCreate = FindDAOType(dllPath);
 
             if (typeToCreate != null)

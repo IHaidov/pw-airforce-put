@@ -28,16 +28,24 @@ namespace Alesik.Haidov.Airforce.UI
 
         private readonly BL.BLC blc;
 
-        private string selectedDataSource = "AirforceDBMock.dll";
+        private string selectedDataSource = "Airforce.DBMock.dll";
 
         public MainWindow()
         {
+            blc = new BL.BLC(selectedDataSource);
+
+            AirbaseLVM.RefreshList(blc.GetAllAirbases());
+            AircraftLVM.RefreshList(blc.GetAllAircrafts());
+
             InitializeComponent();
         }
 
         private void AircraftList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if (e.AddedItems.Count != 0)
+            {
+                ChangeSelectedAircraft((ViewModels.AircraftViewModel)e.AddedItems[0]);
+            }
         }
 
         private void ApplyAircraftSearch(object sender, RoutedEventArgs e)
@@ -57,7 +65,18 @@ namespace Alesik.Haidov.Airforce.UI
 
         private void ApplyNewDataSource(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                blc.LoadLibrary(datasource.Text);
+                AirbaseLVM.RefreshList(blc.GetAllAirbases());
+                AircraftLVM.RefreshList(blc.GetAllAircrafts());
+                selectedDataSource = datasource.Text;
+            }
+            catch
+            {
+                MessageBox.Show("Error occurred, check your input values!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                blc.LoadLibrary(selectedDataSource);
+            }
         }
 
         private void EditAircraft(object sender, RoutedEventArgs e)
@@ -73,6 +92,18 @@ namespace Alesik.Haidov.Airforce.UI
         private void AddAircraft(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void ChangeSelectedAircraft(ViewModels.AircraftViewModel aircraftViewModel)
+        {
+            selectedAircraft = aircraftViewModel;
+            DataContext = selectedAircraft;
+        }
+
+        private void ChangeSelectedAirbase(ViewModels.AirbaseViewModel airbaseViewModel)
+        {
+            selectedAirbase = airbaseViewModel;
+            DataContext = selectedAirbase;
         }
     }
 }

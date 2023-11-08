@@ -72,11 +72,18 @@ namespace Alesik.Haidov.Airforce.BLC
 
         public IEnumerable<IAirbase> GetAirbase(string guid) => dao.GetAllAirbases().Where(airbase => airbase.GUID.Equals(guid));
 
-        public IEnumerable<IAircraft> GetAircraftByModel(string model) => dao.GetAllAircrafts().Where(aircraft => aircraft.Model.Equals(model));
+        public IEnumerable<IAircraft> GetAircraftByModel(string model) => dao.GetAllAircrafts().Where(aircraft => aircraft.Model.Contains(model));
 
         public IEnumerable<IAircraft> GetAircraft(AircraftType type) => dao.GetAllAircrafts().Where(aircraft => aircraft.Type.Equals(type));
 
-        public IEnumerable<IAirbase> GetAirbaseByName(string name) => dao.GetAllAirbases().Where(airbase => airbase.Name.Equals(name));
+        public IEnumerable<IAircraft> GetAircraft(int serviceHours) => dao.GetAllAircrafts().Where(aircraft => aircraft.ServiceHours.Equals(serviceHours));
+
+        public IEnumerable<IAircraft> GetAircraftByBaseName(string baseName) => dao.GetAllAircrafts().Where(aircraft => aircraft.Airbase.Name.Contains(baseName));
+
+        public IEnumerable<IAircraft> GetAircraftByBaseLocation(string baseLocation) => dao.GetAllAircrafts().Where(aircraft => aircraft.Airbase.Location.Contains(baseLocation));
+
+        public IEnumerable<IAirbase> GetAirbaseByName(string name) => dao.GetAllAirbases().Where(airbase => airbase.Name.Contains(name));
+        public IEnumerable<IAirbase> GetAirbaseByLocation(string name) => dao.GetAllAirbases().Where(airbase => airbase.Location.Contains(name));
 
         public void RemoveAircraft(string guid) => dao.RemoveAircraft(guid);
 

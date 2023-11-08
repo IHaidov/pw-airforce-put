@@ -70,6 +70,16 @@ namespace Alesik.Haidov.Airforce.UI.ViewModels
             }
         }
 
+        public string AircraftBaseLocation
+        {
+            get => aircraft.Airbase.Location;
+            set
+            {
+                aircraft.Airbase.Location = value;
+                RaisePropertyChanged(nameof(AircraftBaseLocation));
+            }
+        }
+
         private void RaisePropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
     }

@@ -13,7 +13,7 @@
                 <StackPanel Margin="10,0,10,0">
                 </StackPanel>
             </TabItem>
-            <TabItem Header="Aircrafts">
+            <TabItem Header="Aircrafts" HorizontalAlignment="Left" Width="56">
                 <StackPanel Margin="10,0,10,0">
                     <TextBlock>
                         <Run Text="GUID: " FontWeight="Bold"/>
@@ -32,8 +32,12 @@
                         <Run Text="{Binding AircraftServiceHours}"/>
                     </TextBlock>
                     <TextBlock >
-                        <Run Text="Airbase location: " FontWeight="Bold"/>
+                        <Run Text="Airbase name: " FontWeight="Bold"/>
                         <Run Text="{Binding AircraftBase}"/>
+                    </TextBlock>
+                    <TextBlock >
+                        <Run Text="Airbase location: " FontWeight="Bold"/>
+                        <Run Text="{Binding AircraftBaseLocation}"/>
                     </TextBlock>
                     <Button Margin="0,0,0,5" Click="EditAircraft">Edit selected aircraft</Button>
                     <Button Margin="0,0,0,5" Click="RemoveAircraft">Remove selected aircraft</Button>
@@ -43,15 +47,18 @@
                         <TextBox Margin="5" Padding="2" Name="datasource" MinWidth="100">AirforceDBMock.dll</TextBox>
                         <Button Margin="5" Padding="2" Click="ApplyNewDataSource">Apply</Button>
                     </StackPanel>
+                  
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="5" Padding="2">Filter by service hours:</TextBlock>
-                        <TextBox Margin="5" Padding="2" Name="aircraftServiceHoursFilterField" MinWidth="100"></TextBox>
-                        <Button Margin="5" Padding="2" Click="ApplyAircraftServiceHoursFilter">Apply filter</Button>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="5" Padding="2">Filter by model name:</TextBlock>
-                        <TextBox Margin="5" Padding="2" Name="aircraftModelFilterField" MinWidth="100"></TextBox>
-                        <Button Margin="5" Padding="2" Click="ApplyAircraftModelFilter">Apply filter</Button>
+                        <TextBlock Margin="5" Padding="2">Filter by: </TextBlock>
+                        <ComboBox Margin="5" Padding="2" Name="filterTypeComboBox" MinWidth="100">
+                            <ComboBoxItem Content="service hours" />
+                            <ComboBoxItem Content="model name" />
+                            <ComboBoxItem Content="aircraft type" />
+                            <ComboBoxItem Content="airbase name" />
+                            <ComboBoxItem Content="airbase location" />
+                        </ComboBox>
+                        <TextBox Margin="5" Padding="2" Name="filterValueTextBox" MinWidth="100"/>
+                        <Button Margin="5" Padding="2" Click="ApplyFilter">Apply filter</Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="5" Padding="2">Search by GUID:</TextBlock>

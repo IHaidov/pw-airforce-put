@@ -210,7 +210,6 @@ namespace Alesik.Haidov.Airforce.UI
                 AircraftList.SelectedItem = AircraftList.Items[0];
 
             }
-            else AircraftList.SelectedItem = ;
         }
 
         

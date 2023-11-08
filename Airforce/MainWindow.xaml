@@ -61,10 +61,18 @@
                         <Button Margin="5" Padding="2" Click="ApplyFilter">Apply filter</Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="5" Padding="2">Search by GUID:</TextBlock>
-                        <TextBox Margin="5" Padding="2" Name="aircraftSearchField" MinWidth="300"></TextBox>
+                        <TextBlock Margin="5" Padding="2">Search by:</TextBlock>
+                        <ComboBox Margin="5" Padding="2" Name="searchTypeComboBox" MinWidth="100">
+                            <ComboBoxItem Content="service hours" />
+                            <ComboBoxItem Content="model name" />
+                            <ComboBoxItem Content="aircraft type" />
+                            <ComboBoxItem Content="airbase name" />
+                            <ComboBoxItem Content="airbase location" />
+                        </ComboBox>
+                        <TextBox Margin="5" Padding="2" Name="aircraftSearchField" MinWidth="100"/>
                         <Button Margin="5" Padding="2" Click="ApplyAircraftSearch">Search</Button>
                     </StackPanel>
+                   
                     <ListView Margin="0,5,0,10" Name="AircraftList" SelectionChanged="AircraftList_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding ElementName=Window, Path=AircraftLVM.Aircrafts}" Height="300">
                         <ListView.View>
                             <GridView>

@@ -9,10 +9,6 @@
         Name="Window">
     <Grid>
         <TabControl>
-            <TabItem Header="Airbases">
-                <StackPanel Margin="10,0,10,0">
-                </StackPanel>
-            </TabItem>
             <TabItem Header="Aircrafts" HorizontalAlignment="Left" Width="56">
                 <StackPanel Margin="10,0,10,0">
                     <TextBlock>
@@ -42,37 +38,32 @@
                     <Button Margin="0,0,0,5" Click="EditAircraft">Edit selected aircraft</Button>
                     <Button Margin="0,0,0,5" Click="RemoveAircraft">Remove selected aircraft</Button>
                     <Button Margin="0,0,0,5" Click="AddAircraft">Add new aircraft</Button>
+
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="5" Padding="2">Data source (.dll):</TextBlock>
-                        <TextBox Margin="5" Padding="2" Name="datasource" MinWidth="100">AirforceDBMock.dll</TextBox>
-                        <Button Margin="5" Padding="2" Click="ApplyNewDataSource">Apply</Button>
-                    </StackPanel>
-                  
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="5" Padding="2">Filter by: </TextBlock>
-                        <ComboBox Margin="5" Padding="2" Name="filterTypeComboBox" MinWidth="100">
+                        <TextBlock Margin="5" Padding="2">Filter by:</TextBlock>
+                        <ComboBox Margin="5" Padding="2" Name="airbasefilterTypeComboBox" MinWidth="100">
                             <ComboBoxItem Content="service hours" />
                             <ComboBoxItem Content="model name" />
                             <ComboBoxItem Content="aircraft type" />
                             <ComboBoxItem Content="airbase name" />
                             <ComboBoxItem Content="airbase location" />
                         </ComboBox>
-                        <TextBox Margin="5" Padding="2" Name="filterValueTextBox" MinWidth="100"/>
+                        <TextBox Margin="5" Padding="2" Name="airbasefilterValueTextBox" MinWidth="100"/>
                         <Button Margin="5" Padding="2" Click="ApplyFilter">Apply filter</Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="5" Padding="2">Search by:</TextBlock>
-                        <ComboBox Margin="5" Padding="2" Name="searchTypeComboBox" MinWidth="100">
+                        <ComboBox Margin="5" Padding="2" Name="airbasesearchTypeComboBox" MinWidth="100">
                             <ComboBoxItem Content="service hours" />
                             <ComboBoxItem Content="model name" />
                             <ComboBoxItem Content="aircraft type" />
                             <ComboBoxItem Content="airbase name" />
                             <ComboBoxItem Content="airbase location" />
                         </ComboBox>
-                        <TextBox Margin="5" Padding="2" Name="aircraftSearchField" MinWidth="100"/>
+                        <TextBox Margin="5" Padding="2" Name="airbaseSearchField" MinWidth="100"/>
                         <Button Margin="5" Padding="2" Click="ApplyAircraftSearch">Search</Button>
                     </StackPanel>
-                   
+
                     <ListView Margin="0,5,0,10" Name="AircraftList" SelectionChanged="AircraftList_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding ElementName=Window, Path=AircraftLVM.Aircrafts}" Height="300">
                         <ListView.View>
                             <GridView>
@@ -93,13 +84,75 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <TextBox Name="ModelNameColumnWidth" Visibility="Collapsed" Text="150" />
+                    <TextBox Name="AirBaseModelNameColumnWidth" Visibility="Collapsed" Text="150" />
                     <!-- Hidden TextBox to bind width -->
+                    <TextBox Name="AirBaseBaseLocationColumnWidth" Visibility="Collapsed" Text="150" />
+                    <!-- Hidden TextBox to bind width -->
+
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Airbases">
+                <StackPanel Margin="10,0,10,0">
+                    <TextBlock>
+                        <Run Text="GUID: " FontWeight="Bold"/>
+                        <Run Text="{Binding AirbaseGUID}"/>
+                    </TextBlock>
+                    <TextBlock >
+                        <Run Text="Name: " FontWeight="Bold"/>
+                        <Run Text="{Binding AirbaseName}"/>
+                    </TextBlock>
+                    <TextBlock >
+                        <Run Text="Location: " FontWeight="Bold"/>
+                        <Run Text="{Binding AirbaseLocation}"/>
+                    </TextBlock>
+
+                    <Button Margin="0,0,0,5" Click="EditAirbase">Edit selected airbase</Button>
+                    <Button Margin="0,0,0,5" Click="RemoveAirbase">Remove selected airbase</Button>
+                    <Button Margin="0,0,0,5" Click="AddAirbase">Add new airbase</Button>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="5" Padding="2">Data source (.dll):</TextBlock>
+                        <TextBox Margin="5" Padding="2" Name="datasource" MinWidth="100">Airforce.DBMock.dll</TextBox>
+                        <Button Margin="5" Padding="2" Click="ApplyNewDataSource">Apply</Button>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="5" Padding="2">Filter by:</TextBlock>
+                        <ComboBox Margin="5" Padding="2" Name="filterTypeComboBox" MinWidth="100">                            
+                            <ComboBoxItem Content="airbase name" />
+                            <ComboBoxItem Content="airbase location" />
+                        </ComboBox>
+                        <TextBox Margin="5" Padding="2" Name="filterValueTextBox" MinWidth="100"/>
+                        <Button Margin="5" Padding="2" Click="ApplyFilter">Apply filter</Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="5" Padding="2">Search by:</TextBlock>
+                        <ComboBox Margin="5" Padding="2" Name="searchTypeComboBox" MinWidth="100">
+                            <ComboBoxItem Content="airbase name" />
+                            <ComboBoxItem Content="airbase location" />
+                        </ComboBox>
+                        <TextBox Margin="5" Padding="2" Name="aircraftSearchField" MinWidth="100"/>
+                        <Button Margin="5" Padding="2" Click="ApplyAirbaseSearch">Search</Button>
+                    </StackPanel>
+
+                    <ListView Margin="0,5,0,10" Name="AirbaseList" SelectionChanged="AirbaseList_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding ElementName=Window, Path=AircraftLVM.Aircrafts}" Height="300">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Base location" Width="{Binding ElementName=BaseLocationColumnWidth, Path=Text}">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding AircraftBase}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                     <TextBox Name="BaseLocationColumnWidth" Visibility="Collapsed" Text="150" />
                     <!-- Hidden TextBox to bind width -->
 
                 </StackPanel>
             </TabItem>
+            
         </TabControl>
     </Grid>
 </Window>

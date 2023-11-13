@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BL = Alesik.Haidov.Airforce.BLC;
+using Alesik.Haidov.Airforce.DBMock;
 
 namespace Alesik.Haidov.Airforce.UI
 {
@@ -243,7 +244,30 @@ namespace Alesik.Haidov.Airforce.UI
 
         private void AddAircraft(object sender, RoutedEventArgs e)
         {
+            var allAirbasesNames = blc.GetAllAirbases();
+            AircraftDialog aircraftInputDialog = new(allAirbasesNames);
 
+            if (aircraftInputDialog.ShowDialog() == true)
+            {
+                DBMock.AircraftDBMock aircraft;
+                try
+                {
+                    aircraft = new Airforce.DBMock.AircraftDBMock()
+                    {
+                        Model = aircraftInputDialog.Model,
+                        Airbase = blc.GetAircraftByBaseName(aircraftInputDialog.Airbase).First(),
+                        ServiceHours = aircraftInputDialog.ServiceHours,
+                        AircraftType = aircraftInputDialog.AircraftType
+                    };
+                }
+                catch
+                {
+                    MessageBox.Show("Error occurred, check your input values!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                blc.CreateOrUpdateAircraft(aircraft);
+                AircraftLVM.RefreshList(blc.GetAllAircrafts());
+            }
         }
 
         private void ChangeSelectedAircraft(ViewModels.AircraftViewModel aircraftViewModel)
@@ -256,6 +280,16 @@ namespace Alesik.Haidov.Airforce.UI
         {
             selectedAirbase = airbaseViewModel;
             DataContext = selectedAirbase;
+        }
+
+        private void AirbaseList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

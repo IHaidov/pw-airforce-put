@@ -29,6 +29,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\BLC\Airforce.BLC.csproj" />
 		<ProjectReference Include="..\Core\Airforce.Core.csproj" />
+		<ProjectReference Include="..\DBMock\Airforce.DBMock.csproj" />
 		<ProjectReference Include="..\Interfaces\Airforce.Interfaces.csproj" />
 	</ItemGroup>
 

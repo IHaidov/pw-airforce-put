@@ -50,10 +50,15 @@ namespace Alesik.Haidov.Airforce.UI
                     break;
                 }
             }
-
+            aircraftType.ItemsSource = Enum.GetNames(typeof(AircraftType));
+            if (aircraftType.Items.Count > 0)
+            {
+                aircraftType.SelectedIndex = 0;
+            }
             aircraftModel.Text = aircraft.Model;
             aircraftType.SelectedIndex = (int) aircraft.Type;
             aircraftServiceHours.Text = aircraft.ServiceHours.ToString();
+            
         }
 
         private void btnDialogOk_Click(object sender, RoutedEventArgs e)

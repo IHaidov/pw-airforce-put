@@ -5,8 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Alesik.Haidov.Airforce.UI"
         mc:Ignorable="d"
-        Title="AirbaseDialog" Height="450" Width="800">
-    <Grid>
+        Title="Airbase" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen"
+        ContentRendered="Window_ContentRendered">
+    <Grid Margin="15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label Name="questionName" Grid.Column="1">Provide new airbase name:</Label>
+        <TextBox Name="airbaseName" Margin="0,5,0,0" Grid.Column="1" Grid.Row="1" MinWidth="250">Name</TextBox>
         
+        <Label Name="questionLocation" Grid.Column="1" Grid.Row="2">Provide new airbase location:</Label>
+        <TextBox Name="airbaseLocation" Margin="0,5,0,0" Grid.Column="1" Grid.Row="3" MinWidth="250">Location</TextBox>
+        <WrapPanel Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,15,0,0">
+            <Button IsDefault="True" Name="btnDialogOk" Click="btnDialogOk_Click" MinWidth="60" Margin="0,0,10,0">_Apply</Button>
+            <Button IsCancel="True" MinWidth="60">_Cancel</Button>
+        </WrapPanel>
     </Grid>
 </Window>

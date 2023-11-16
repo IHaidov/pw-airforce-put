@@ -44,14 +44,6 @@ namespace Alesik.Haidov.Airforce.UI
             InitializeComponent();
         }
 
-        private void AircraftList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.AddedItems.Count != 0)
-            {
-                ChangeSelectedAircraft((ViewModels.AircraftViewModel)e.AddedItems[0]);
-            }
-        }
-
         #region Filters
         private void ApplyFilter(object sender, RoutedEventArgs e)
         {
@@ -131,7 +123,7 @@ namespace Alesik.Haidov.Airforce.UI
             else
             {
                 AircraftType type;
-                Enum.TryParse<AircraftType>(modelType,out type);
+                Enum.TryParse<AircraftType>(modelType, out type);
                 AircraftLVM.RefreshList(blc.GetAircraft(type));
             }
         }
@@ -162,6 +154,16 @@ namespace Alesik.Haidov.Airforce.UI
 
         #endregion
 
+        #region Aircraft operations
+
+        private void AircraftList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count != 0)
+            {
+                ChangeSelectedAircraft((ViewModels.AircraftViewModel)e.AddedItems[0]);
+            }
+        }
+        
         private void ApplyAircraftSearch(object sender, RoutedEventArgs e)
         {
             // First, determine the selected filter type from the ComboBox.
@@ -213,7 +215,7 @@ namespace Alesik.Haidov.Airforce.UI
             }
         }
 
-        
+
 
 
         private void ApplyNewDataSource(object sender, RoutedEventArgs e)
@@ -234,12 +236,46 @@ namespace Alesik.Haidov.Airforce.UI
 
         private void EditAircraft(object sender, RoutedEventArgs e)
         {
+            if (selectedAircraft != null)
+            {
+                AircraftDialog alpacaEditDialog = new(
+                    blc.GetAllAirbasesNames(),
+                    blc.GetAircraft(selectedAircraft.AircraftGUID).First()
+                );
 
+                if (alpacaEditDialog.ShowDialog() == true)
+                {
+                    blc.CreateOrUpdateAircraft(new AircraftDBMock()
+                    {
+                        GUID = selectedAircraft.AircraftGUID,
+                        Model = alpacaEditDialog.AircraftModel,
+                        Type = alpacaEditDialog.AirType,
+                        Airbase = blc.GetAirbaseByName(alpacaEditDialog.Airbase).First(),
+                        ServiceHours = alpacaEditDialog.AircraftServiceHours
+                    });
+
+                    AircraftLVM.RefreshList(blc.GetAllAircrafts());
+                    ChangeSelectedAircraft(null);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Aircraft is not selected!");
+            }
         }
 
         private void RemoveAircraft(object sender, RoutedEventArgs e)
         {
-
+            if (selectedAircraft != null)
+            {
+                blc.RemoveAircraft(selectedAircraft.AircraftGUID);
+                AircraftLVM.RefreshList(blc.GetAllAircrafts());
+                selectedAircraft = null;
+            }
+            else
+            {
+                MessageBox.Show("Aircraft is not selected!");
+            }
         }
 
         private void AddAircraft(object sender, RoutedEventArgs e)
@@ -252,7 +288,7 @@ namespace Alesik.Haidov.Airforce.UI
                 DBMock.AircraftDBMock aircraft;
                 try
                 {
-                    aircraft = new Airforce.DBMock.AircraftDBMock()
+                    aircraft = new AircraftDBMock()
                     {
                         Model = aircraftInputDialog.AircraftModel,
                         Airbase = blc.GetAirbaseByName(aircraftInputDialog.Airbase).First(),
@@ -276,6 +312,9 @@ namespace Alesik.Haidov.Airforce.UI
             DataContext = selectedAircraft;
         }
 
+        #endregion
+
+        #region Airbase operations
         private void ChangeSelectedAirbase(ViewModels.AirbaseViewModel airbaseViewModel)
         {
             selectedAirbase = airbaseViewModel;
@@ -284,12 +323,10 @@ namespace Alesik.Haidov.Airforce.UI
 
         private void AirbaseList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
+            if (e.AddedItems.Count != 0)
+            {
+                ChangeSelectedAirbase((ViewModels.AirbaseViewModel)e.AddedItems[0]);
+            }
         }
 
         private void ApplyAirbaseSearch(object sender, RoutedEventArgs e)
@@ -311,5 +348,6 @@ namespace Alesik.Haidov.Airforce.UI
         {
 
         }
+        #endregion
     }
 }

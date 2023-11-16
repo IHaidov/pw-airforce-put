@@ -244,7 +244,7 @@ namespace Alesik.Haidov.Airforce.UI
 
         private void AddAircraft(object sender, RoutedEventArgs e)
         {
-            var allAirbasesNames = blc.GetAllAirbases();
+            var allAirbasesNames = blc.GetAllAirbasesNames();
             AircraftDialog aircraftInputDialog = new(allAirbasesNames);
 
             if (aircraftInputDialog.ShowDialog() == true)
@@ -254,10 +254,10 @@ namespace Alesik.Haidov.Airforce.UI
                 {
                     aircraft = new Airforce.DBMock.AircraftDBMock()
                     {
-                        Model = aircraftInputDialog.Model,
-                        Airbase = blc.GetAircraftByBaseName(aircraftInputDialog.Airbase).First(),
-                        ServiceHours = aircraftInputDialog.ServiceHours,
-                        AircraftType = aircraftInputDialog.AircraftType
+                        Model = aircraftInputDialog.AircraftModel,
+                        Airbase = blc.GetAirbaseByName(aircraftInputDialog.Airbase).First(),
+                        ServiceHours = aircraftInputDialog.AircraftServiceHours,
+                        Type = aircraftInputDialog.AirType
                     };
                 }
                 catch
@@ -288,6 +288,26 @@ namespace Alesik.Haidov.Airforce.UI
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ApplyAirbaseSearch(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddAirbase(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RemoveAirbase(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EditAirbase(object sender, RoutedEventArgs e)
         {
 
         }

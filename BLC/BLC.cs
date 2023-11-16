@@ -115,5 +115,7 @@ namespace Alesik.Haidov.Airforce.BLC
             }
         }
 
+        public IEnumerable<string> GetAllAirbasesNames() => from airbase in dao.GetAllAirbases() select airbase.Name;
+
     }
 }

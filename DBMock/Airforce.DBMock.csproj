@@ -14,16 +14,20 @@
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<PropertyGroup>
-			<DestinationFolder>$(SolutionDir)Airforce\bin\$(Configuration)\net6.0-windows\</DestinationFolder>
-		</PropertyGroup>
+    <PropertyGroup>
+        <!-- Use GitHub's environment variable if SolutionDir is not defined -->
+        <ResolvedSolutionDir Condition=" '$(SolutionDir)' == '' ">$(GITHUB_WORKSPACE)\</ResolvedSolutionDir>
+        <ResolvedSolutionDir Condition=" '$(SolutionDir)' != '' ">$(SolutionDir)</ResolvedSolutionDir>
+        <DestinationFolder>$(ResolvedSolutionDir)Airforce\bin\$(Configuration)\net6.0-windows\</DestinationFolder>
+    </PropertyGroup>
 
-		<!-- Ensure the destination directory exists -->
-		<MakeDir Directories="$(DestinationFolder)" />
+    <!-- Ensure the destination directory exists -->
+    <MakeDir Directories="$(DestinationFolder)" />
 
-		<!-- Use the 'Copy' task instead of 'Exec' command for better MSBuild integration -->
-		<Copy SourceFiles="$(TargetDir)$(TargetFileName)" DestinationFolder="$(DestinationFolder)" />
-	</Target>
+    <!-- Use the 'Copy' task instead of 'Exec' command for better MSBuild integration -->
+    <Copy SourceFiles="$(TargetDir)$(TargetFileName)" DestinationFolder="$(DestinationFolder)" />
+</Target>
+
 
 
 </Project>

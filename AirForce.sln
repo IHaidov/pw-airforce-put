@@ -16,6 +16,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airforce.DBFile", "Airforce.DBFile\Airforce.DBFile.csproj", "{DA415775-35CA-4D31-B90C-2B269AC8BB67}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airforce.DBSQL", "Airforce.DBSQL\Airforce.DBSQL.csproj", "{9A640159-4F3E-4934-B744-E0647A0F21D8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{377245CB-EE4B-46C7-B768-A6CE98428526} = {377245CB-EE4B-46C7-B768-A6CE98428526}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -2,13 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Alesik.Haidov.Airforce.DBSQL
 {
-    internal class AirbaseDBSQL
+    public class AirbaseDBSQL
     {
         [Key]
         public string GUID { get; set; }

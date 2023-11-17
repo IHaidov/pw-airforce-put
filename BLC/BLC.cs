@@ -1,4 +1,5 @@
 ﻿using Alesik.Haidov.Airforce.Core;
+using Alesik.Haidov.Airforce.DBSQL;
 using Alesik.Haidov.Airforce.Interfaces;
 using System.Reflection;
 
@@ -8,9 +9,21 @@ namespace Alesik.Haidov.Airforce.BLC
     {
         private IDAO dao;
 
-        public BLC(string dllPath)
+        public BLC(string filePath)
         {
-            LoadLibrary(dllPath);
+            LoadDatasource(filePath);
+        }
+
+        public void LoadDatasource(string filePath)
+        {
+            if (filePath.EndsWith(".dll"))
+                LoadLibrary(filePath);
+            else if (filePath.EndsWith(".db"))
+                LoadSql(filePath);
+        }
+        public void LoadSql(string dbPath)
+        {
+            dao = new DAOSQL(dbPath);
         }
 
         public void LoadLibrary(string dllPath)

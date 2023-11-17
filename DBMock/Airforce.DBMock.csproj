@@ -14,7 +14,16 @@
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="copy &quot;$(TargetDir)$(TargetFileName)&quot; &quot;$(ProjectDir)..\Airforce\bin\Debug\net6.0-windows\$(TargetFileName)&quot;" />
+		<PropertyGroup>
+			<DestinationFolder>$(SolutionDir)Airforce\bin\$(Configuration)\net6.0-windows\</DestinationFolder>
+		</PropertyGroup>
+
+		<!-- Ensure the destination directory exists -->
+		<MakeDir Directories="$(DestinationFolder)" />
+
+		<!-- Use the 'Copy' task instead of 'Exec' command for better MSBuild integration -->
+		<Copy SourceFiles="$(TargetDir)$(TargetFileName)" DestinationFolder="$(DestinationFolder)" />
 	</Target>
+
 
 </Project>

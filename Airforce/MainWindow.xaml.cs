@@ -38,13 +38,49 @@ namespace Alesik.Haidov.Airforce.UI
         {
             blc = new BL.BLC(selectedDataSource);
 
-            AirbaseLVM.RefreshList(blc.GetAllAirbases());
+            AirbaseLVM.RefreshList(blc.GetAllAirbases().Distinct());
             AircraftLVM.RefreshList(blc.GetAllAircrafts());
 
             InitializeComponent();
         }
 
         #region Filters
+        private void AirbaseApplyFilter(object sender, RoutedEventArgs e)
+        {
+            // First, determine the selected filter type from the ComboBox.
+            var selectedFilter = airbasefilterTypeComboBox.SelectedItem as ComboBoxItem;
+
+            if (selectedFilter == null)
+            {
+                // Handle the case where no filter is selected, if necessary.
+                AirbaseLVM.RefreshList(blc.GetAllAirbases());
+            }
+
+            // Retrieve the filter value entered by the user.
+            string filterValue = airbasefilterValueTextBox.Text;
+
+            if (string.IsNullOrWhiteSpace(filterValue))
+            {
+                // Handle the case where the filter value is empty, if necessary.
+                AirbaseLVM.RefreshList(blc.GetAllAirbases());
+            }
+
+            // Apply the filter based on the selected filter type.
+            switch (selectedFilter.Content.ToString())
+            {
+                
+                case "airbase name":
+                    FilterAirbaseByName(filterValue);
+                    break;
+                case "airbase location":
+                    FilterAirbaseByLocation(filterValue);
+                    break;
+                default:
+                    // Handle unexpected filter type, if necessary.
+                    MessageBox.Show("Unknown filter type selected.");
+                    break;
+            }
+        }
         private void ApplyFilter(object sender, RoutedEventArgs e)
         {
             // First, determine the selected filter type from the ComboBox.
@@ -151,7 +187,29 @@ namespace Alesik.Haidov.Airforce.UI
                 AircraftLVM.RefreshList(blc.GetAircraftByBaseLocation(airbaseLocation));
             }
         }
+        private void FilterAirbaseByName(string airbase)
+        {
+            if (airbase == "")
+            {
+                AirbaseLVM.RefreshList(blc.GetAllAirbases());
+            }
+            else
+            {
+                AirbaseLVM.RefreshList(blc.GetAirbaseByName(airbase));
+            }
+        }
 
+        private void FilterAirbaseByLocation(string airbaseLocation)
+        {
+            if (airbaseLocation == "")
+            {
+                AirbaseLVM.RefreshList(blc.GetAllAirbases());
+            }
+            else
+            {
+                AirbaseLVM.RefreshList(blc.GetAirbaseByLocation(airbaseLocation));
+            }
+        }
         #endregion
 
         #region Aircraft operations
@@ -215,9 +273,6 @@ namespace Alesik.Haidov.Airforce.UI
             }
         }
 
-
-
-
         private void ApplyNewDataSource(object sender, RoutedEventArgs e)
         {
             try
@@ -238,20 +293,20 @@ namespace Alesik.Haidov.Airforce.UI
         {
             if (selectedAircraft != null)
             {
-                AircraftDialog alpacaEditDialog = new(
+                AircraftDialog aircraftEditDialog = new(
                     blc.GetAllAirbasesNames(),
                     blc.GetAircraft(selectedAircraft.AircraftGUID).First()
                 );
 
-                if (alpacaEditDialog.ShowDialog() == true)
+                if (aircraftEditDialog.ShowDialog() == true)
                 {
                     blc.CreateOrUpdateAircraft(new AircraftDBMock()
                     {
                         GUID = selectedAircraft.AircraftGUID,
-                        Model = alpacaEditDialog.AircraftModel,
-                        Type = alpacaEditDialog.AirType,
-                        Airbase = blc.GetAirbaseByName(alpacaEditDialog.Airbase).First(),
-                        ServiceHours = alpacaEditDialog.AircraftServiceHours
+                        Model = aircraftEditDialog.AircraftModel,
+                        Type = aircraftEditDialog.AirType,
+                        Airbase = blc.GetAirbaseByName(aircraftEditDialog.Airbase).First(),
+                        ServiceHours = aircraftEditDialog.AircraftServiceHours
                     });
 
                     AircraftLVM.RefreshList(blc.GetAllAircrafts());
@@ -331,22 +386,111 @@ namespace Alesik.Haidov.Airforce.UI
 
         private void ApplyAirbaseSearch(object sender, RoutedEventArgs e)
         {
+            // First, determine the selected filter type from the ComboBox.
+            var selectedFilter = airbasesearchTypeComboBox.SelectedItem as ComboBoxItem;
 
+            if (selectedFilter == null)
+            {
+                // Handle the case where no filter is selected, if necessary.
+                AirbaseLVM.RefreshList(blc.GetAllAirbases());
+            }
+
+            // Retrieve the filter value entered by the user.
+            string filterValue = airbaseSearchField.Text;
+
+            if (string.IsNullOrWhiteSpace(filterValue))
+            {
+                // Handle the case where the filter value is empty, if necessary.
+                AirbaseLVM.RefreshList(blc.GetAllAirbases());
+            }
+
+            // Apply the filter based on the selected filter type.
+            switch (selectedFilter.Content.ToString())
+            {   
+                case "airbase name":
+                    FilterAirbaseByName(filterValue);
+                    break;
+                case "airbase location":
+                    FilterAirbaseByLocation(filterValue);
+                    break;
+                default:
+                    // Handle unexpected filter type, if necessary.
+                    MessageBox.Show("Unknown filter type selected.");
+                    break;
+            }
+
+            if (AirbaseList.Items.Count > 0)
+            {
+                AirbaseList.SelectedItem = AirbaseList.Items[0];
+
+            }
         }
 
         private void AddAirbase(object sender, RoutedEventArgs e)
         {
+            var allAirbasesNames = blc.GetAllAirbasesNames();
+            AirbaseDialog airbaseDialog = new();
 
+            if (airbaseDialog.ShowDialog() == true)
+            {
+                DBMock.AirbaseDBMock airbase;
+                try
+                {
+                    airbase = new AirbaseDBMock()
+                    {
+                        Name = airbaseDialog.AirbaseName,
+                        Location = airbaseDialog.AirbaseLocation
+                    };
+                }
+                catch
+                {
+                    MessageBox.Show("Error occurred, check your input values!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                blc.CreateOrUpdateAirbase(airbase);
+                AirbaseLVM.RefreshList(blc.GetAllAirbases());
+            }
         }
 
         private void RemoveAirbase(object sender, RoutedEventArgs e)
         {
-
+            if (selectedAirbase != null)
+            {
+                blc.RemoveAirbase(selectedAirbase.AirbaseGUID);
+                AirbaseLVM.RefreshList(blc.GetAllAirbases());
+                selectedAirbase = null;
+            }
+            else
+            {
+                MessageBox.Show("Airbase is not selected!");
+            }
         }
 
         private void EditAirbase(object sender, RoutedEventArgs e)
         {
+            if (selectedAirbase != null)
+            {
+                AirbaseDialog airbaseDialog = new(
+                    blc.GetAirbase(selectedAirbase.AirbaseGUID).First()
+                );
 
+                if (airbaseDialog.ShowDialog() == true)
+                {
+                    blc.CreateOrUpdateAirbase(new AirbaseDBMock()
+                    {
+                        GUID = selectedAirbase.AirbaseGUID,
+                        Name = airbaseDialog.AirbaseName,
+                        Location = airbaseDialog.AirbaseLocation
+                    });
+
+                    AirbaseLVM.RefreshList(blc.GetAllAirbases());
+                    ChangeSelectedAirbase(null);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Airbase is not selected!");
+            }
         }
         #endregion
     }

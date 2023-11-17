@@ -43,11 +43,11 @@ namespace Alesik.Haidov.Airforce.UI
             airbaseName.Focus();
         }
 
-        public string FarmName
+        public string AirbaseName
         {
             get { return airbaseName.Text; }
         }
-        public string FarmLocation
+        public string AirbaseLocation
         {
             get { return airbaseLocation.Text; }
         }

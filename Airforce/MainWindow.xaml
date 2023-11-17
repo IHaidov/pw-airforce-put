@@ -38,29 +38,33 @@
                     <Button Margin="0,0,0,5" Click="EditAircraft">Edit selected aircraft</Button>
                     <Button Margin="0,0,0,5" Click="RemoveAircraft">Remove selected aircraft</Button>
                     <Button Margin="0,0,0,5" Click="AddAircraft">Add new aircraft</Button>
-
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="5" Padding="2">Data source (.dll):</TextBlock>
+                        <TextBox Margin="5" Padding="2" Name="datasource" MinWidth="100">Airforce.DBMock.dll</TextBox>
+                        <Button Margin="5" Padding="2" Click="ApplyNewDataSource">Apply</Button>
+                    </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="5" Padding="2">Filter by:</TextBlock>
-                        <ComboBox Margin="5" Padding="2" Name="airbasefilterTypeComboBox" MinWidth="100">
+                        <ComboBox Margin="5" Padding="2" Name="filterTypeComboBox" MinWidth="100">
                             <ComboBoxItem Content="service hours" />
                             <ComboBoxItem Content="model name" />
                             <ComboBoxItem Content="aircraft type" />
                             <ComboBoxItem Content="airbase name" />
                             <ComboBoxItem Content="airbase location" />
                         </ComboBox>
-                        <TextBox Margin="5" Padding="2" Name="airbasefilterValueTextBox" MinWidth="100"/>
+                        <TextBox Margin="5" Padding="2" Name="filterValueTextBox" MinWidth="100"/>
                         <Button Margin="5" Padding="2" Click="ApplyFilter">Apply filter</Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="5" Padding="2">Search by:</TextBlock>
-                        <ComboBox Margin="5" Padding="2" Name="airbasesearchTypeComboBox" MinWidth="100">
+                        <ComboBox Margin="5" Padding="2" Name="searchTypeComboBox" MinWidth="100">
                             <ComboBoxItem Content="service hours" />
                             <ComboBoxItem Content="model name" />
                             <ComboBoxItem Content="aircraft type" />
                             <ComboBoxItem Content="airbase name" />
                             <ComboBoxItem Content="airbase location" />
                         </ComboBox>
-                        <TextBox Margin="5" Padding="2" Name="airbaseSearchField" MinWidth="100"/>
+                        <TextBox Margin="5" Padding="2" Name="aircraftSearchField" MinWidth="100"/>
                         <Button Margin="5" Padding="2" Click="ApplyAircraftSearch">Search</Button>
                     </StackPanel>
 
@@ -109,38 +113,34 @@
                     <Button Margin="0,0,0,5" Click="EditAirbase">Edit selected airbase</Button>
                     <Button Margin="0,0,0,5" Click="RemoveAirbase">Remove selected airbase</Button>
                     <Button Margin="0,0,0,5" Click="AddAirbase">Add new airbase</Button>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="5" Padding="2">Data source (.dll):</TextBlock>
-                        <TextBox Margin="5" Padding="2" Name="datasource" MinWidth="100">Airforce.DBMock.dll</TextBox>
-                        <Button Margin="5" Padding="2" Click="ApplyNewDataSource">Apply</Button>
-                    </StackPanel>
+                    
 
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="5" Padding="2">Filter by:</TextBlock>
-                        <ComboBox Margin="5" Padding="2" Name="filterTypeComboBox" MinWidth="100">                            
+                        <ComboBox Margin="5" Padding="2" Name="airbasefilterTypeComboBox" MinWidth="100">                            
                             <ComboBoxItem Content="airbase name" />
                             <ComboBoxItem Content="airbase location" />
                         </ComboBox>
-                        <TextBox Margin="5" Padding="2" Name="filterValueTextBox" MinWidth="100"/>
-                        <Button Margin="5" Padding="2" Click="ApplyFilter">Apply filter</Button>
+                        <TextBox Margin="5" Padding="2" Name="airbasefilterValueTextBox" MinWidth="100"/>
+                        <Button Margin="5" Padding="2" Click="AirbaseApplyFilter">Apply filter</Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="5" Padding="2">Search by:</TextBlock>
-                        <ComboBox Margin="5" Padding="2" Name="searchTypeComboBox" MinWidth="100">
+                        <ComboBox Margin="5" Padding="2" Name="airbasesearchTypeComboBox" MinWidth="100">
                             <ComboBoxItem Content="airbase name" />
                             <ComboBoxItem Content="airbase location" />
                         </ComboBox>
-                        <TextBox Margin="5" Padding="2" Name="aircraftSearchField" MinWidth="100"/>
+                        <TextBox Margin="5" Padding="2" Name="airbaseSearchField" MinWidth="100"/>
                         <Button Margin="5" Padding="2" Click="ApplyAirbaseSearch">Search</Button>
                     </StackPanel>
 
-                    <ListView Margin="0,5,0,10" Name="AirbaseList" SelectionChanged="AirbaseList_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding ElementName=Window, Path=AircraftLVM.Aircrafts}" Height="300">
+                    <ListView Margin="0,5,0,10" Name="AirbaseList" SelectionChanged="AirbaseList_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding ElementName=Window, Path=AirbaseLVM.Airbases}" Height="300">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Base location" Width="{Binding ElementName=BaseLocationColumnWidth, Path=Text}">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding AircraftBase}" />
+                                            <TextBlock Text="{Binding AirbaseName}" />
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>

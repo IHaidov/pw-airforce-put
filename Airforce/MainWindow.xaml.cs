@@ -43,6 +43,21 @@ namespace Alesik.Haidov.Airforce.UI
 
             InitializeComponent();
         }
+        private void ApplyNewDataSource(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                blc.LoadDatasource(datasource.Text);
+                AirbaseLVM.RefreshList(blc.GetAllAirbases());
+                AircraftLVM.RefreshList(blc.GetAllAircrafts());
+                selectedDataSource = datasource.Text;
+            }
+            catch
+            {
+                MessageBox.Show("Error occurred, check your input values!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                blc.LoadDatasource(selectedDataSource);
+            }
+        }
 
         #region Filters
         private void ApplyAircraftSearch(object sender, RoutedEventArgs e)
@@ -316,23 +331,7 @@ namespace Alesik.Haidov.Airforce.UI
                 ChangeSelectedAircraft((ViewModels.AircraftViewModel)e.AddedItems[0]);
             }
         }
-        
-        private void ApplyNewDataSource(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                blc.LoadLibrary(datasource.Text);
-                AirbaseLVM.RefreshList(blc.GetAllAirbases());
-                AircraftLVM.RefreshList(blc.GetAllAircrafts());
-                selectedDataSource = datasource.Text;
-            }
-            catch
-            {
-                MessageBox.Show("Error occurred, check your input values!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                blc.LoadLibrary(selectedDataSource);
-            }
-        }
-
+      
         private void EditAircraft(object sender, RoutedEventArgs e)
         {
             if (selectedAircraft != null)

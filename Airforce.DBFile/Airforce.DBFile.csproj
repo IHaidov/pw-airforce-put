@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Alesik.Haidov.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+  </PropertyGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="copy &quot;$(TargetDir)$(TargetFileName)&quot; &quot;$(ProjectDir)..\Airforce\bin\Debug\net6.0-windows\$(TargetFileName)&quot;" />
+	</Target>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Interfaces\Airforce.Interfaces.csproj" />
+	</ItemGroup>
+</Project>

@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Airforce.DBSQL\Airforce.DBSQL.csproj" />
     <ProjectReference Include="..\Core\Airforce.Core.csproj" />
     <ProjectReference Include="..\Interfaces\Airforce.Interfaces.csproj" />
   </ItemGroup>

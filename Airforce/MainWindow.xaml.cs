@@ -45,6 +45,99 @@ namespace Alesik.Haidov.Airforce.UI
         }
 
         #region Filters
+        private void ApplyAircraftSearch(object sender, RoutedEventArgs e)
+        {
+            // First, determine the selected filter type from the ComboBox.
+            var selectedFilter = searchTypeComboBox.SelectedItem as ComboBoxItem;
+
+            if (selectedFilter == null)
+            {
+                // Handle the case where no filter is selected, if necessary.
+                AircraftLVM.RefreshList(blc.GetAllAircrafts());
+            }
+
+            // Retrieve the filter value entered by the user.
+            string filterValue = aircraftSearchField.Text;
+
+            if (string.IsNullOrWhiteSpace(filterValue))
+            {
+                // Handle the case where the filter value is empty, if necessary.
+                AircraftLVM.RefreshList(blc.GetAllAircrafts());
+            }
+
+            // Apply the filter based on the selected filter type.
+            switch (selectedFilter.Content.ToString())
+            {
+                case "service hours":
+                    FilterByServiceHours(filterValue);
+                    break;
+                case "model name":
+                    FilterByModelName(filterValue);
+                    break;
+                case "aircraft type":
+                    FilterByAircraftType(filterValue);
+                    break;
+                case "airbase name":
+                    FilterByAirbases(filterValue);
+                    break;
+                case "airbase location":
+                    FilterByAirbasesLocation(filterValue);
+                    break;
+                default:
+                    // Handle unexpected filter type, if necessary.
+                    MessageBox.Show("Unknown filter type selected.");
+                    break;
+            }
+
+            if (AircraftList.Items.Count > 0)
+            {
+                AircraftList.SelectedItem = AircraftList.Items[0];
+
+            }
+        }
+
+        private void ApplyAirbaseSearch(object sender, RoutedEventArgs e)
+        {
+            // First, determine the selected filter type from the ComboBox.
+            var selectedFilter = airbasesearchTypeComboBox.SelectedItem as ComboBoxItem;
+
+            if (selectedFilter == null)
+            {
+                // Handle the case where no filter is selected, if necessary.
+                AirbaseLVM.RefreshList(blc.GetAllAirbases());
+            }
+
+            // Retrieve the filter value entered by the user.
+            string filterValue = airbaseSearchField.Text;
+
+            if (string.IsNullOrWhiteSpace(filterValue))
+            {
+                // Handle the case where the filter value is empty, if necessary.
+                AirbaseLVM.RefreshList(blc.GetAllAirbases());
+            }
+
+            // Apply the filter based on the selected filter type.
+            switch (selectedFilter.Content.ToString())
+            {
+                case "airbase name":
+                    FilterAirbaseByName(filterValue);
+                    break;
+                case "airbase location":
+                    FilterAirbaseByLocation(filterValue);
+                    break;
+                default:
+                    // Handle unexpected filter type, if necessary.
+                    MessageBox.Show("Unknown filter type selected.");
+                    break;
+            }
+
+            if (AirbaseList.Items.Count > 0)
+            {
+                AirbaseList.SelectedItem = AirbaseList.Items[0];
+
+            }
+        }
+
         private void AirbaseApplyFilter(object sender, RoutedEventArgs e)
         {
             // First, determine the selected filter type from the ComboBox.
@@ -81,6 +174,7 @@ namespace Alesik.Haidov.Airforce.UI
                     break;
             }
         }
+
         private void ApplyFilter(object sender, RoutedEventArgs e)
         {
             // First, determine the selected filter type from the ComboBox.
@@ -187,6 +281,7 @@ namespace Alesik.Haidov.Airforce.UI
                 AircraftLVM.RefreshList(blc.GetAircraftByBaseLocation(airbaseLocation));
             }
         }
+
         private void FilterAirbaseByName(string airbase)
         {
             if (airbase == "")
@@ -222,57 +317,6 @@ namespace Alesik.Haidov.Airforce.UI
             }
         }
         
-        private void ApplyAircraftSearch(object sender, RoutedEventArgs e)
-        {
-            // First, determine the selected filter type from the ComboBox.
-            var selectedFilter = searchTypeComboBox.SelectedItem as ComboBoxItem;
-
-            if (selectedFilter == null)
-            {
-                // Handle the case where no filter is selected, if necessary.
-                AircraftLVM.RefreshList(blc.GetAllAircrafts());
-            }
-
-            // Retrieve the filter value entered by the user.
-            string filterValue = aircraftSearchField.Text;
-
-            if (string.IsNullOrWhiteSpace(filterValue))
-            {
-                // Handle the case where the filter value is empty, if necessary.
-                AircraftLVM.RefreshList(blc.GetAllAircrafts());
-            }
-
-            // Apply the filter based on the selected filter type.
-            switch (selectedFilter.Content.ToString())
-            {
-                case "service hours":
-                    FilterByServiceHours(filterValue);
-                    break;
-                case "model name":
-                    FilterByModelName(filterValue);
-                    break;
-                case "aircraft type":
-                    FilterByAircraftType(filterValue);
-                    break;
-                case "airbase name":
-                    FilterByAirbases(filterValue);
-                    break;
-                case "airbase location":
-                    FilterByAirbasesLocation(filterValue);
-                    break;
-                default:
-                    // Handle unexpected filter type, if necessary.
-                    MessageBox.Show("Unknown filter type selected.");
-                    break;
-            }
-
-            if (AircraftList.Items.Count > 0)
-            {
-                AircraftList.SelectedItem = AircraftList.Items[0];
-
-            }
-        }
-
         private void ApplyNewDataSource(object sender, RoutedEventArgs e)
         {
             try
@@ -384,47 +428,7 @@ namespace Alesik.Haidov.Airforce.UI
             }
         }
 
-        private void ApplyAirbaseSearch(object sender, RoutedEventArgs e)
-        {
-            // First, determine the selected filter type from the ComboBox.
-            var selectedFilter = airbasesearchTypeComboBox.SelectedItem as ComboBoxItem;
-
-            if (selectedFilter == null)
-            {
-                // Handle the case where no filter is selected, if necessary.
-                AirbaseLVM.RefreshList(blc.GetAllAirbases());
-            }
-
-            // Retrieve the filter value entered by the user.
-            string filterValue = airbaseSearchField.Text;
-
-            if (string.IsNullOrWhiteSpace(filterValue))
-            {
-                // Handle the case where the filter value is empty, if necessary.
-                AirbaseLVM.RefreshList(blc.GetAllAirbases());
-            }
-
-            // Apply the filter based on the selected filter type.
-            switch (selectedFilter.Content.ToString())
-            {   
-                case "airbase name":
-                    FilterAirbaseByName(filterValue);
-                    break;
-                case "airbase location":
-                    FilterAirbaseByLocation(filterValue);
-                    break;
-                default:
-                    // Handle unexpected filter type, if necessary.
-                    MessageBox.Show("Unknown filter type selected.");
-                    break;
-            }
-
-            if (AirbaseList.Items.Count > 0)
-            {
-                AirbaseList.SelectedItem = AirbaseList.Items[0];
-
-            }
-        }
+        
 
         private void AddAirbase(object sender, RoutedEventArgs e)
         {

@@ -1,0 +1,55 @@
+name: .NET Core Desktop
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+
+    runs-on: windows-latest
+
+    env:
+      Solution_Name: AirForce.sln
+      Project_Path: Airforce\Airforce.csproj
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    # If you have tests, uncomment the following lines and specify the test project path
+    # - name: Execute unit tests
+    #   run: dotnet test ${{ env.Solution_Name }} --configuration ${{ matrix.configuration }} --no-restore
+
+    - name: Restore the application
+      run: msbuild ${{ env.Solution_Name }} /t:Restore /p:Configuration=${{ matrix.configuration }}
+
+    - name: Build the application
+      run: msbuild ${{ env.Project_Path }} /p:Configuration=${{ matrix.configuration }} /p:OutputPath=./AppBuild
+
+    # Optional: Create a zipped artifact of the build output (if you want to package your application as a zip file)
+    - name: Zip the build artifacts
+      run: Compress-Archive -Path ./AppBuild/* -DestinationPath ./Airforce-${{ matrix.configuration }}.zip
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: Airforce-${{ matrix.configuration }}-Build
+        path: ./Airforce-${{ matrix.configuration }}.zip

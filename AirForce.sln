@@ -3,15 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airforce", "Airforce\Airforce.csproj", "{E1932C8B-CB90-49A5-B591-98C3E3C0853E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Airforce", "Airforce\Airforce.csproj", "{E1932C8B-CB90-49A5-B591-98C3E3C0853E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airforce.Core", "Core\Airforce.Core.csproj", "{377245CB-EE4B-46C7-B768-A6CE98428526}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Airforce.Core", "Core\Airforce.Core.csproj", "{377245CB-EE4B-46C7-B768-A6CE98428526}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airforce.Interfaces", "Interfaces\Airforce.Interfaces.csproj", "{02F6BE37-1050-4E80-BB0F-46B5E225E1B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Airforce.Interfaces", "Interfaces\Airforce.Interfaces.csproj", "{02F6BE37-1050-4E80-BB0F-46B5E225E1B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airforce.BLC", "BLC\Airforce.BLC.csproj", "{7ADB440B-8608-4550-B34D-AF972FF512C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Airforce.BLC", "BLC\Airforce.BLC.csproj", "{7ADB440B-8608-4550-B34D-AF972FF512C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airforce.DBMock", "DBMock\Airforce.DBMock.csproj", "{5DDBB7F6-C20E-44D9-8BA5-FE4C08AEF8E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Airforce.DBMock", "DBMock\Airforce.DBMock.csproj", "{5DDBB7F6-C20E-44D9-8BA5-FE4C08AEF8E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airforce.DBFile", "Airforce.DBFile\Airforce.DBFile.csproj", "{DA415775-35CA-4D31-B90C-2B269AC8BB67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airforce.DBSQL", "Airforce.DBSQL\Airforce.DBSQL.csproj", "{9A640159-4F3E-4934-B744-E0647A0F21D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{5DDBB7F6-C20E-44D9-8BA5-FE4C08AEF8E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DDBB7F6-C20E-44D9-8BA5-FE4C08AEF8E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DDBB7F6-C20E-44D9-8BA5-FE4C08AEF8E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA415775-35CA-4D31-B90C-2B269AC8BB67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA415775-35CA-4D31-B90C-2B269AC8BB67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA415775-35CA-4D31-B90C-2B269AC8BB67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA415775-35CA-4D31-B90C-2B269AC8BB67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A640159-4F3E-4934-B744-E0647A0F21D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A640159-4F3E-4934-B744-E0647A0F21D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A640159-4F3E-4934-B744-E0647A0F21D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A640159-4F3E-4934-B744-E0647A0F21D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

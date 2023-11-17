@@ -1,21 +1,36 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <RootNamespace>Alesik.Haidov.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<RootNamespace>Alesik.Haidov.$(MSBuildProjectName.Replace(" ", "_")).UI</RootNamespace>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0-rc.2.23479.6" />
-  </ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="Program.cs" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\BLC\Airforce.BLC.csproj" />
-    <ProjectReference Include="..\Core\Airforce.Core.csproj" />
-    <ProjectReference Include="..\Interfaces\Airforce.Interfaces.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.0">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0-rc.2.23479.6" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Include="App.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\BLC\Airforce.BLC.csproj" />
+		<ProjectReference Include="..\Core\Airforce.Core.csproj" />
+		<ProjectReference Include="..\DBMock\Airforce.DBMock.csproj" />
+		<ProjectReference Include="..\Interfaces\Airforce.Interfaces.csproj" />
+	</ItemGroup>
 
 </Project>

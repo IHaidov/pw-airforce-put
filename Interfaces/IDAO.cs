@@ -3,15 +3,15 @@
     public interface IDAO
     {
         IEnumerable<IAircraft> GetAllAircrafts();
-        IEnumerable<IAirforceBase> GetAllAirforceBases();
+        IEnumerable<IAirbase> GetAllAirbases();
 
         IAircraft AddNewAircraft(IAircraft aircraft);
-        IAirforceBase AddNewAirforceBase(IAirforceBase airforceBase);
+        IAirbase AddNewAirbase(IAirbase Airbase);
 
-        void RemoveAirforceBase(string guid);
+        void RemoveAirbase(string guid);
         void RemoveAircraft(string guid);
 
         void UpdateAircraft(IAircraft aircraft);
-        void UpdateAircraftBase(IAirforceBase airforceBase);
+        void UpdateAircraftBase(IAirbase Airbase);
     }
 }

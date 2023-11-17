@@ -8,7 +8,7 @@ namespace Alesik.Haidov.Airforce.Interfaces
         string Model { get; set; }
         int ServiceHours { get; set; }
         AircraftType Type { get; set; }
-        IAirforceBase AirforceBase { get; set; }
+        IAirbase Airbase { get; set; }
 
     }
 }

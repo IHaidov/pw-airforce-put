@@ -3,7 +3,7 @@
 namespace Alesik.Haidov.Airforce.DBMock
 {
     [Serializable]
-    public class AirforceBaseDBMock : IAirforceBase
+    public class AirbaseDBMock : IAirbase
     {
         public string GUID { get; set; }
         public string Name { get; set; }

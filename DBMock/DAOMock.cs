@@ -1,30 +1,31 @@
-﻿using Alesik.Haidov.Airforce.Interfaces;
+﻿using Alesik.Haidov.Airforce.DBMock;
+using Alesik.Haidov.Airforce.Interfaces;
 
 namespace Alesik.Haidov.Airforce.DBMock
 {
     public class DAOMock : IDAO
     {
         private List<IAircraft> aircrafts;
-        private List<IAirforceBase> airforceBases;
+        private List<IAirbase> Airbases;
 
         public DAOMock()
         {
-            airforceBases = new List<IAirforceBase>();
+            Airbases = new List<IAirbase>();
 
-            AddNewAirforceBase(new AirforceBaseDBMock() { GUID = Guid.NewGuid().ToString(), Name = "Hill Air Force Base", Location = "UT"});
-            AddNewAirforceBase(new AirforceBaseDBMock() { GUID = Guid.NewGuid().ToString(), Name = "Edwards Air Force Base", Location = "CA" });
-            AddNewAirforceBase(new AirforceBaseDBMock() { GUID = Guid.NewGuid().ToString(), Name = "Robins Air Force Base", Location = "GA" });
+            AddNewAirbase(new AirbaseDBMock() { GUID = Guid.NewGuid().ToString(), Name = "Hill Air Force Base", Location = "UT"});
+            AddNewAirbase(new AirbaseDBMock() { GUID = Guid.NewGuid().ToString(), Name = "Edwards Air Force Base", Location = "CA" });
+            AddNewAirbase(new AirbaseDBMock() { GUID = Guid.NewGuid().ToString(), Name = "Robins Air Force Base", Location = "GA" });
             
             aircrafts = new List<IAircraft>();
 
-            AddNewAircraft(new AircraftDBMock() { GUID = Guid.NewGuid().ToString(), Model = "F-16 C/D Fighting Falcon", Type=Core.AircraftType.CAS, ServiceHours = 724, AirforceBase = airforceBases[0] });
-            AddNewAircraft(new AircraftDBMock() { GUID = Guid.NewGuid().ToString(), Model = "B-1 Lancer", Type = Core.AircraftType.Bomber, ServiceHours = 1045, AirforceBase = airforceBases[1] });
-            AddNewAircraft(new AircraftDBMock() { GUID = Guid.NewGuid().ToString(), Model = "C-130 Hercules", Type = Core.AircraftType.Transport, ServiceHours = 365, AirforceBase = airforceBases[1] });
-            AddNewAircraft(new AircraftDBMock() { GUID = Guid.NewGuid().ToString(), Model = "F-35A Lighting II", Type = Core.AircraftType.CAS, ServiceHours = 570, AirforceBase = airforceBases[0] });
-            AddNewAircraft(new AircraftDBMock() { GUID = Guid.NewGuid().ToString(), Model = "C-17 Globemaster III", Type = Core.AircraftType.Transport, ServiceHours = 1600, AirforceBase = airforceBases[2] });
-            AddNewAircraft(new AircraftDBMock() { GUID = Guid.NewGuid().ToString(), Model = "B-2A Spirit", Type = Core.AircraftType.Bomber, ServiceHours = 1540, AirforceBase = airforceBases[0] });
-            AddNewAircraft(new AircraftDBMock() { GUID = Guid.NewGuid().ToString(), Model = "B-21 Raider", Type = Core.AircraftType.Bomber, ServiceHours = 0, AirforceBase = airforceBases[2] });
-            AddNewAircraft(new AircraftDBMock() { GUID = Guid.NewGuid().ToString(), Model = "F-15 C/D Eagle", Type = Core.AircraftType.CAS, ServiceHours = 809, AirforceBase = airforceBases[0] });
+            AddNewAircraft(new AircraftDBMock() { GUID = Guid.NewGuid().ToString(), Model = "F-16 C/D Fighting Falcon", Type=Core.AircraftType.CAS, ServiceHours = 724, Airbase = Airbases[0] });
+            AddNewAircraft(new AircraftDBMock() { GUID = Guid.NewGuid().ToString(), Model = "B-1 Lancer", Type = Core.AircraftType.Bomber, ServiceHours = 1045, Airbase = Airbases[1] });
+            AddNewAircraft(new AircraftDBMock() { GUID = Guid.NewGuid().ToString(), Model = "C-130 Hercules", Type = Core.AircraftType.Transport, ServiceHours = 365, Airbase = Airbases[1] });
+            AddNewAircraft(new AircraftDBMock() { GUID = Guid.NewGuid().ToString(), Model = "F-35A Lighting II", Type = Core.AircraftType.CAS, ServiceHours = 570, Airbase = Airbases[0] });
+            AddNewAircraft(new AircraftDBMock() { GUID = Guid.NewGuid().ToString(), Model = "C-17 Globemaster III", Type = Core.AircraftType.Transport, ServiceHours = 1600, Airbase = Airbases[2] });
+            AddNewAircraft(new AircraftDBMock() { GUID = Guid.NewGuid().ToString(), Model = "B-2A Spirit", Type = Core.AircraftType.Bomber, ServiceHours = 1540, Airbase = Airbases[0] });
+            AddNewAircraft(new AircraftDBMock() { GUID = Guid.NewGuid().ToString(), Model = "B-21 Raider", Type = Core.AircraftType.Bomber, ServiceHours = 0, Airbase = Airbases[2] });
+            AddNewAircraft(new AircraftDBMock() { GUID = Guid.NewGuid().ToString(), Model = "F-15 C/D Eagle", Type = Core.AircraftType.CAS, ServiceHours = 809, Airbase = Airbases[0] });
         }
 
         public IAircraft AddNewAircraft(IAircraft aircraft)
@@ -33,19 +34,19 @@ namespace Alesik.Haidov.Airforce.DBMock
             return aircraft;
         }
 
-        public IAirforceBase AddNewAirforceBase(IAirforceBase airforceBase)
+        public IAirbase AddNewAirbase(IAirbase Airbase)
         {
-            airforceBases.Add(airforceBase);
-            return airforceBase;
+            Airbases.Add(Airbase);
+            return Airbase;
         }
 
-        public IEnumerable<IAirforceBase> GetAllAirforceBases() => airforceBases;
+        public IEnumerable<IAirbase> GetAllAirbases() => Airbases;
 
         public IEnumerable<IAircraft> GetAllAircrafts() => aircrafts;
 
         public void RemoveAircraft(string guid) => aircrafts.RemoveAll(aircraft => aircraft.GUID.Equals(guid));
 
-        public void RemoveAirforceBase(string guid) => airforceBases.RemoveAll(airforceBase => airforceBase.GUID.Equals(guid));
+        public void RemoveAirbase(string guid) => Airbases.RemoveAll(Airbase => Airbase.GUID.Equals(guid));
 
         public void UpdateAircraft(IAircraft aircraft)
         {
@@ -57,12 +58,12 @@ namespace Alesik.Haidov.Airforce.DBMock
         }
 
 
-        public void UpdateAircraftBase(IAirforceBase airforceBase)
+        public void UpdateAircraftBase(IAirbase Airbase)
         {
-            var index = airforceBases.FindIndex(currAirforceBase => currAirforceBase.GUID.Equals(airforceBase.GUID));
+            var index = Airbases.FindIndex(currAirbase => currAirbase.GUID.Equals(Airbase.GUID));
             if (index != -1)
             {
-                airforceBases[index] = airforceBase;
+                Airbases[index] = Airbase;
             }
         }
     }

@@ -10,6 +10,6 @@ namespace Alesik.Haidov.Airforce.DBMock
         public string Model { get; set; }
         public int ServiceHours { get; set; }
         public AircraftType Type { get; set; }
-        public IAirforceBase AirforceBase { get; set; }
+        public IAirbase Airbase { get; set; }
     }
 }

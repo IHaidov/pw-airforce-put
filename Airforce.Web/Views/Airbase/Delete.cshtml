@@ -1,7 +1,8 @@
 ﻿@model Alesik.Haidov.Airforce.Web.Models.Airbase
 
-<h2>Airbase Details</h2>
+<h2>Delete Airbase</h2>
 
+<h3>Are you sure you want to delete this airbase?</h3>
 <div>
     <h4>Airbase</h4>
     <hr />
@@ -25,5 +26,10 @@
             @Model.Location
         </dd>
     </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="GUID" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a href="@Url.Action("Index")">Back to List</a>
+    </form>
 </div>
-<a href="@Url.Action("Index")">Back to List</a>

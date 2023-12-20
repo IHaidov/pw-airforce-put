@@ -1,0 +1,29 @@
+﻿@model Alesik.Haidov.Airforce.Web.Models.Aircraft
+
+<h2>Edit Aircraft</h2>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="GUID" />
+    <div class="form-group">
+        <label asp-for="Model" class="control-label"></label>
+        <input asp-for="Model" class="form-control" />
+        <span asp-validation-for="Model" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ServiceHours" class="control-label"></label>
+        <input asp-for="ServiceHours" class="form-control" />
+        <span asp-validation-for="ServiceHours" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Type" class="control-label"></label>
+        <input asp-for="Type" class="form-control" />
+        <span asp-validation-for="Type" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a href="@Url.Action("Index")">Back to List</a>
+</div>

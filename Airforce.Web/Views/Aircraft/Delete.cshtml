@@ -1,7 +1,8 @@
 ﻿@model Alesik.Haidov.Airforce.Web.Models.Aircraft
 
-<h2>Aircraft Details</h2>
+<h2>Delete Aircraft</h2>
 
+<h3>Are you sure you want to delete this aircraft?</h3>
 <div>
     <h4>Aircraft</h4>
     <hr />
@@ -31,5 +32,10 @@
             @Model.Type
         </dd>
     </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="GUID" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a href="@Url.Action("Index")">Back to List</a>
+    </form>
 </div>
-<a href="@Url.Action("Index")">Back to List</a>

@@ -1,7 +1,31 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
-}
+﻿@model IEnumerable<Alesik.Haidov.Airforce.Web.Models.Airbase>
 
-<h1>Index</h1>
+<h2>Airbase List</h2>
 
+<table>
+    <thead>
+        <tr>
+            <th>GUID</th>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var airbase in Model)
+        {
+            <tr>
+                <td>@airbase.GUID</td>
+                <td>@airbase.Name</td>
+                <td>@airbase.Location</td>
+                <td>
+                    <a href="@Url.Action("Details", "Airbase", new { id = airbase.GUID })">Details</a> |
+                    <a href="@Url.Action("Edit", "Airbase", new { id = airbase.GUID })">Edit</a> |
+                    <a href="@Url.Action("Delete", "Airbase", new { id = airbase.GUID })">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Create", "Airbase")">Create New</a>

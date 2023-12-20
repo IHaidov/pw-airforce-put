@@ -1,4 +1,7 @@
-namespace Airforce.Web
+using Alesik.Haidov.Airforce.Web.Services;
+using Alesik.Haidov.Airforce.BLC;
+
+namespace Alesik.Haidov.Airforce.Web
 {
     public class Program
     {
@@ -8,6 +11,11 @@ namespace Airforce.Web
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            // Configure your BLC and services
+            var blc = new BLC.BLC("Airforce.DBMock.dll"); // Replace with actual path or configuration
+            builder.Services.AddSingleton(blc);
+            builder.Services.AddScoped<AircraftService>();
+            builder.Services.AddScoped<AirbaseService>();
 
             var app = builder.Build();
 

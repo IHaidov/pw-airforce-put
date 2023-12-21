@@ -14,6 +14,7 @@ namespace Alesik.Haidov.Airforce.Web.Services {
         public AircraftService(BLC.BLC blc)
         {
             _blc = blc;
+            _blc.LoadDatasource("Airforce.DBFile.dll");
         }
 
         public IEnumerable<Aircraft> GetAllAircrafts()

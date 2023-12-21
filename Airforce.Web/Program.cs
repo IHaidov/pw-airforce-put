@@ -11,11 +11,13 @@ namespace Alesik.Haidov.Airforce.Web
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+
             // Configure your BLC and services
-            var blc = new BLC.BLC("Airforce.DBMock.dll"); // Replace with actual path or configuration
+            var blc = new BLC.BLC("airforce.sql"); // Replace with actual path or configuration
+            
             builder.Services.AddSingleton(blc);
-            builder.Services.AddScoped<AircraftService>();
             builder.Services.AddScoped<AirbaseService>();
+            builder.Services.AddScoped<AircraftService>();
 
             var app = builder.Build();
 
@@ -33,6 +35,13 @@ namespace Alesik.Haidov.Airforce.Web
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
 
             app.MapRazorPages();
 

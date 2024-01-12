@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<Alesik.Haidov.Airforce.Web.Models.Aircraft>
 
+@{
+    Layout = "_Layout";
+}
+
 <h2>Aircraft List</h2>
 
 <table>
@@ -9,6 +13,7 @@
             <th>Model</th>
             <th>Service Hours</th>
             <th>Type</th>
+            <th>Airbase</th> 
             <th>Actions</th>
         </tr>
     </thead>
@@ -20,6 +25,7 @@
                 <td>@aircraft.Model</td>
                 <td>@aircraft.ServiceHours</td>
                 <td>@aircraft.Type</td>
+                <td>@aircraft.Airbase.Name</td> 
                 <td>
                     <a href="@Url.Action("Details", "Aircraft", new { id = aircraft.GUID })">Details</a> |
                     <a href="@Url.Action("Edit", "Aircraft", new { id = aircraft.GUID })">Edit</a> |

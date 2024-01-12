@@ -1,5 +1,10 @@
 ﻿@model Alesik.Haidov.Airforce.Web.Models.Aircraft
 
+@{
+    Layout = "_Layout";
+}
+
+
 <h2>Aircraft Details</h2>
 
 <div>
@@ -29,6 +34,12 @@
         </dt>
         <dd class="col-sm-10">
             @Model.Type
+        </dd>
+        <dt class="col-sm-2">
+            Airbase
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Airbase.Name [@Model.Airbase.Location]
         </dd>
     </dl>
 </div>

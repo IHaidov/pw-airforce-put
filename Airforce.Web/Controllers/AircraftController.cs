@@ -1,16 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Alesik.Haidov.Airforce.Web.Services;
 using Alesik.Haidov.Airforce.Web.Models;
+using Alesik.Haidov.Airforce.Core;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Alesik.Haidov.Airforce.Web.Controllers
 {
     public class AircraftController : Controller
     {
         private readonly AircraftService _aircraftService;
+        private readonly AirbaseService _airbaseService;
 
-        public AircraftController(AircraftService aircraftService)
+        public AircraftController(AircraftService aircraftService, AirbaseService airbaseService)
         {
             _aircraftService = aircraftService;
+            _airbaseService = airbaseService;
         }
 
         public IActionResult Index()
@@ -29,10 +33,18 @@ namespace Alesik.Haidov.Airforce.Web.Controllers
             return View(aircraft);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
+            // Assuming your airbase service method returns a list of airbases
+            var airbases = _airbaseService.GetAllAirbases();
+
+            ViewData["Airbases"] = new SelectList(airbases, "GUID", "Name");
+            ViewData["Types"] = new SelectList(Enum.GetValues(typeof(AircraftType)), "Value", "Text");
+
             return View();
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -46,6 +58,7 @@ namespace Alesik.Haidov.Airforce.Web.Controllers
             return View(aircraft);
         }
 
+        [HttpGet]
         public IActionResult Edit(string id)
         {
             var aircraft = _aircraftService.GetAircraftById(id);
@@ -53,25 +66,30 @@ namespace Alesik.Haidov.Airforce.Web.Controllers
             {
                 return NotFound();
             }
+
+            ViewData["Types"] = Enum.GetValues(typeof(AircraftType));
+
+            var airbases = _airbaseService.GetAllAirbases();
+            ViewData["Airbases"] = airbases;
+
             return View(aircraft);
         }
 
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(string id, Aircraft aircraft)
+        public IActionResult Edit(Aircraft aircraft)
         {
-            if (id != aircraft.GUID)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                _aircraftService.CreateOrUpdateAircraft(aircraft);
+                _aircraftService.CreateOrUpdateAircraft(aircraft); 
                 return RedirectToAction(nameof(Index));
             }
             return View(aircraft);
         }
+
+
 
         public IActionResult Delete(string id)
         {

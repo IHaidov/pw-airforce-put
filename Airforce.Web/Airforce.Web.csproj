@@ -10,16 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Airbase\Create.cshtml" />
-    <Content Remove="Views\Aircraft\Create.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Views\Airbase\Create.cshtml" />
-    <None Include="Views\Aircraft\Create.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
   </ItemGroup>
@@ -28,6 +18,19 @@
     <ProjectReference Include="..\BLC\Airforce.BLC.csproj" />
     <ProjectReference Include="..\Core\Airforce.Core.csproj" />
     <ProjectReference Include="..\Interfaces\Airforce.Interfaces.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Airbase\Create.cshtml" />
+    <None Include="Views\Airbase\Delete.cshtml" />
+    <None Include="Views\Airbase\Details.cshtml" />
+    <None Include="Views\Airbase\Edit.cshtml" />
+    <None Include="Views\Airbase\Index.cshtml" />
+    <None Include="Views\Aircraft\Create.cshtml" />
+    <None Include="Views\Aircraft\Delete.cshtml" />
+    <None Include="Views\Aircraft\Details.cshtml" />
+    <None Include="Views\Aircraft\Edit.cshtml" />
+    <None Include="Views\Aircraft\Index.cshtml" />
   </ItemGroup>
 
 </Project>

@@ -79,7 +79,7 @@ namespace Alesik.Haidov.Airforce.BLC
 
         public IEnumerable<IAircraft> GetAllAircrafts() => dao.GetAllAircrafts();
 
-        public IEnumerable<IAirbase> GetAllAirbases() => dao.GetAllAirbases();
+        public IEnumerable<IAirbase>? GetAllAirbases() => dao.GetAllAirbases();
 
         public IEnumerable<IAircraft> GetAircraft(string guid) => dao.GetAllAircrafts().Where(aircraft => aircraft.GUID.Equals(guid));
 

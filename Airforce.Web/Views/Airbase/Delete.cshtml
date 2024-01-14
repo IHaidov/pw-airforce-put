@@ -32,9 +32,9 @@
         </dd>
     </dl>
 
-    <form asp-action="Delete">
+    <form asp-action="Delete" method="post">
         <input type="hidden" asp-for="GUID" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <input type="submit" value="Delete" class="btn btn-danger"/> |
         <a href="@Url.Action("Index")">Back to List</a>
     </form>
 </div>

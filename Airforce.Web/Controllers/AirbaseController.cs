@@ -32,16 +32,16 @@ namespace Alesik.Haidov.Airforce.Web.Controllers
             return View(airbase);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Create(Airbase airbase)
         {
-            if (ModelState.IsValid)
+            if (!string.IsNullOrWhiteSpace(airbase.Name) & !string.IsNullOrWhiteSpace(airbase.Location))
             {
                 _airbaseService.CreateOrUpdateAirbase(airbase);
                 return RedirectToAction(nameof(Index));
@@ -49,6 +49,7 @@ namespace Alesik.Haidov.Airforce.Web.Controllers
             return View(airbase);
         }
 
+        [HttpGet]
         public IActionResult Edit(string id)
         {
             var airbase = _airbaseService.GetAirbaseById(id);
@@ -60,22 +61,19 @@ namespace Alesik.Haidov.Airforce.Web.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(string id, Airbase airbase)
+        public IActionResult Edit(Airbase airbase)
         {
-            if (id != airbase.GUID)
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                return View(airbase);
             }
 
-            if (ModelState.IsValid)
-            {
-                _airbaseService.CreateOrUpdateAirbase(airbase);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(airbase);
+            _airbaseService.CreateOrUpdateAirbase(airbase);
+            return RedirectToAction(nameof(Index));
         }
 
+
+        [HttpGet]
         public IActionResult Delete(string id)
         {
             var airbase = _airbaseService.GetAirbaseById(id);
@@ -86,11 +84,11 @@ namespace Alesik.Haidov.Airforce.Web.Controllers
             return View(airbase);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(string id)
+        public IActionResult Delete(Airbase airbase)
         {
-            _airbaseService.RemoveAirbase(id);
+            _airbaseService.RemoveAirbase(airbase.GUID);
             return RedirectToAction(nameof(Index));
         }
     }

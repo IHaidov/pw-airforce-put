@@ -14,6 +14,7 @@ namespace Alesik.Haidov.Airforce.Web.Services
         public AirbaseService(BLC.BLC blc)
         {
             _blc = blc;
+            _blc.LoadDatasource("airforce.db");
         }
 
         public IEnumerable<Airbase> GetAllAirbases()

@@ -84,6 +84,7 @@ namespace Alesik.Haidov.Airforce.DBSQL
             aircraft.AirbaseGUID = updatedAircraft.Airbase.GUID;
 
             Entry(aircraft).CurrentValues.SetValues(aircraft);
+            SaveChanges();
         }
 
         public void UpdateAircraftBase(IAirbase updatedAirbase)
@@ -93,6 +94,7 @@ namespace Alesik.Haidov.Airforce.DBSQL
             airbase.Location = updatedAirbase.Location;
 
             Entry(airbase).CurrentValues.SetValues(airbase);
+            SaveChanges();
         }
     }
 }

@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>e410b23a-51d8-4938-8537-faed7f75ec46</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <RootNamespace>Alesik.Haidov.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BLC\Airforce.BLC.csproj" />
+    <ProjectReference Include="..\Core\Airforce.Core.csproj" />
+    <ProjectReference Include="..\Interfaces\Airforce.Interfaces.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Airbase\Create.cshtml" />
+    <None Include="Views\Airbase\Delete.cshtml" />
+    <None Include="Views\Airbase\Details.cshtml" />
+    <None Include="Views\Airbase\Edit.cshtml" />
+    <None Include="Views\Airbase\Index.cshtml" />
+    <None Include="Views\Aircraft\Create.cshtml" />
+    <None Include="Views\Aircraft\Delete.cshtml" />
+    <None Include="Views\Aircraft\Details.cshtml" />
+    <None Include="Views\Aircraft\Edit.cshtml" />
+    <None Include="Views\Aircraft\Index.cshtml" />
+  </ItemGroup>
+
+</Project>

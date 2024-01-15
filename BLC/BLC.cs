@@ -9,6 +9,10 @@ namespace Alesik.Haidov.Airforce.BLC
     {
         private IDAO dao;
 
+        public BLC()
+        {
+        }
+
         public BLC(string filePath)
         {
             LoadDatasource(filePath);

@@ -72,11 +72,9 @@ namespace Alesik.Haidov.Airforce.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
-        [HttpGet]
-        public IActionResult Delete(string id)
+        public IActionResult Delete(string guid)
         {
-            var airbase = _airbaseService.GetAirbaseById(id);
+            var airbase = _airbaseService.GetAirbaseById(guid);
             if (airbase == null)
             {
                 return NotFound();
@@ -84,11 +82,11 @@ namespace Alesik.Haidov.Airforce.Web.Controllers
             return View(airbase);
         }
 
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(Airbase airbase)
+        public IActionResult DeleteConfirmed(string guid)
         {
-            _airbaseService.RemoveAirbase(airbase.GUID);
+            _airbaseService.RemoveAirbase(guid);
             return RedirectToAction(nameof(Index));
         }
     }

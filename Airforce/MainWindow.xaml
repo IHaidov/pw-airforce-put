@@ -141,8 +141,8 @@
 
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Orientation="Horizontal">
-                            <Button Margin="5,0" Background="Green" Click="AddAirbase" Height="50" Width="100">Add</Button>
-                            <Button Margin="5,0" Background="Yellow" Click="EditAirbase" Height="50" Width="100">Edit</Button>
+                            <Button Margin="5,0" Background="LightGreen" Click="AddAirbase" Height="50" Width="100">Add</Button>
+                            <Button Margin="5,0" Background="LightYellow" Click="EditAirbase" Height="50" Width="100">Edit</Button>
                             <Button Margin="5,0" Background="Red" Click="RemoveAirbase" Height="50" Width="100">Remove</Button>
                         </StackPanel>
 

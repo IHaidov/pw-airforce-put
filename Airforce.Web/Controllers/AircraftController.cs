@@ -104,19 +104,31 @@ namespace Alesik.Haidov.Airforce.Web.Controllers
 
         public IActionResult Delete(string id)
         {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
             var aircraft = _aircraftService.GetAircraftById(id);
             if (aircraft == null)
             {
                 return NotFound();
             }
+
             return View(aircraft);
         }
 
+        // POST: Aircraft/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(string id)
         {
-            _aircraftService.RemoveAircraft(id);
+            var aircraft = _aircraftService.GetAircraftById(id);
+            if (aircraft != null)
+            {
+                _aircraftService.RemoveAircraft(aircraft.GUID);
+            }
+
             return RedirectToAction(nameof(Index));
         }
     }

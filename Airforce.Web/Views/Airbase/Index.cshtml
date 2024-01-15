@@ -4,11 +4,10 @@
     Layout = "_Layout";
 }
 
+<h2 class="mb-3">Airbase List</h2>
 
-<h2>Airbase List</h2>
-
-<table>
-    <thead>
+<table class="table table-bordered table-hover">
+    <thead class="thead-dark">
         <tr>
             <th>GUID</th>
             <th>Name</th>
@@ -24,13 +23,13 @@
                 <td>@airbase.Name</td>
                 <td>@airbase.Location</td>
                 <td>
-                    <a href="@Url.Action("Details", "Airbase", new { id = airbase.GUID })">Details</a> |
-                    <a href="@Url.Action("Edit", "Airbase", new { id = airbase.GUID })">Edit</a> |
-                    <a href="@Url.Action("Delete", "Airbase", new { id = airbase.GUID })">Delete</a>
+                    <a href="@Url.Action("Details", "Airbase", new { id = airbase.GUID })" class="btn btn-info btn-sm">Details</a>
+                    <a href="@Url.Action("Edit", "Airbase", new { id = airbase.GUID })" class="btn btn-primary btn-sm">Edit</a>
+                    <a href="@Url.Action("Delete", "Airbase", new { id = airbase.GUID })" class="btn btn-danger btn-sm">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-<a href="@Url.Action("Create", "Airbase")">Create New</a>
+<a href="@Url.Action("Create", "Airbase")" class="btn btn-success">Create New</a>

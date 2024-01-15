@@ -4,16 +4,16 @@
     Layout = "_Layout";
 }
 
-<h2>Aircraft List</h2>
+<h2 class="mb-3">Aircraft List</h2>
 
-<table>
-    <thead>
+<table class="table table-bordered table-hover">
+    <thead class="thead-dark">
         <tr>
             <th>GUID</th>
             <th>Model</th>
             <th>Service Hours</th>
             <th>Type</th>
-            <th>Airbase</th> 
+            <th>Airbase</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -25,15 +25,15 @@
                 <td>@aircraft.Model</td>
                 <td>@aircraft.ServiceHours</td>
                 <td>@aircraft.Type</td>
-                <td>@aircraft.Airbase.Name</td> 
+                <td>@aircraft.Airbase?.Name</td>
                 <td>
-                    <a href="@Url.Action("Details", "Aircraft", new { id = aircraft.GUID })">Details</a> |
-                    <a href="@Url.Action("Edit", "Aircraft", new { id = aircraft.GUID })">Edit</a> |
-                    <a href="@Url.Action("Delete", "Aircraft", new { id = aircraft.GUID })">Delete</a>
+                    <a href="@Url.Action("Details", "Aircraft", new { id = aircraft.GUID })" class="btn btn-info btn-sm">Details</a>
+                    <a href="@Url.Action("Edit", "Aircraft", new { id = aircraft.GUID })" class="btn btn-primary btn-sm">Edit</a>
+                    <a href="@Url.Action("Delete", "Aircraft", new { id = aircraft.GUID })" class="btn btn-danger btn-sm">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-<a href="@Url.Action("Create", "Aircraft")">Create New</a>
+<a href="@Url.Action("Create", "Aircraft")" class="btn btn-success">Create New</a>

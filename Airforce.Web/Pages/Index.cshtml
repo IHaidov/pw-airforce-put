@@ -6,5 +6,16 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>Learn about our project:</a>.</p>
+
+    <div class="row mt-4">
+        <div class="col">
+            <a href="@Url.Action("Index", "Airbase")" class="btn btn-primary btn-lg btn-block">Airbases</a>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col">
+            <a href="@Url.Action("Index", "Aircraft")" class="btn btn-secondary btn-lg btn-block">Aircrafts</a>
+        </div>
+    </div>
 </div>

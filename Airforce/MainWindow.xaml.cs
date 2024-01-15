@@ -16,13 +16,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BL = Alesik.Haidov.Airforce.BLC;
 using Alesik.Haidov.Airforce.DBMock;
+using Microsoft.Win32;
+using System.ComponentModel;
+using System.IO;
 
 namespace Alesik.Haidov.Airforce.UI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         public ViewModels.AirbaseListViewModel AirbaseLVM { get; } = new ViewModels.AirbaseListViewModel();
         private ViewModels.AirbaseViewModel selectedAirbase = null;
@@ -32,30 +35,49 @@ namespace Alesik.Haidov.Airforce.UI
 
         private readonly BL.BLC blc;
 
-        private string selectedDataSource = "Airforce.DBMock.dll";
 
         public MainWindow()
         {
-            blc = new BL.BLC(selectedDataSource);
-
-            AirbaseLVM.RefreshList(blc.GetAllAirbases().Distinct());
-            AircraftLVM.RefreshList(blc.GetAllAircrafts());
-
             InitializeComponent();
+            DataContext = this;
+            if (File.Exists(AircraftDataSourceFile))
+            {
+                blc = new BL.BLC(AircraftDataSourceFile);
+
+                AirbaseLVM.RefreshList(blc.GetAllAirbases().Distinct());
+                AircraftLVM.RefreshList(blc.GetAllAircrafts());
+            }
+            else
+            {
+                blc = new BL.BLC();
+            }
         }
-        private void ApplyNewDataSource(object sender, RoutedEventArgs e)
+
+        private void ApplyAircraftDataSource_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                blc.LoadDatasource(datasource.Text);
-                AirbaseLVM.RefreshList(blc.GetAllAirbases());
-                AircraftLVM.RefreshList(blc.GetAllAircrafts());
-                selectedDataSource = datasource.Text;
+                if (File.Exists(AircraftDataSourceFile))
+                {
+                    blc.LoadDatasource(AircraftDataSourceFile);
+                    AircraftLVM.RefreshList(blc.GetAllAircrafts());
+                    AirbaseLVM.RefreshList(blc.GetAllAirbases());
+                }
             }
             catch
             {
                 MessageBox.Show("Error occurred, check your input values!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                blc.LoadDatasource(selectedDataSource);
+            }
+        }
+
+        private void ChooseAircraftDataSourceFile_Click(object sender, RoutedEventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "dll files (*.dll)|*.dll|Database files (*.db)|*.db|All files (*.*)|*.*";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                AircraftDataSourceFile = openFileDialog.FileName;
             }
         }
 
@@ -176,7 +198,7 @@ namespace Alesik.Haidov.Airforce.UI
             // Apply the filter based on the selected filter type.
             switch (selectedFilter.Content.ToString())
             {
-                
+
                 case "airbase name":
                     FilterAirbaseByName(filterValue);
                     break;
@@ -331,7 +353,7 @@ namespace Alesik.Haidov.Airforce.UI
                 ChangeSelectedAircraft((ViewModels.AircraftViewModel)e.AddedItems[0]);
             }
         }
-      
+
         private void EditAircraft(object sender, RoutedEventArgs e)
         {
             if (selectedAircraft != null)
@@ -427,7 +449,7 @@ namespace Alesik.Haidov.Airforce.UI
             }
         }
 
-        
+
 
         private void AddAirbase(object sender, RoutedEventArgs e)
         {
@@ -496,5 +518,23 @@ namespace Alesik.Haidov.Airforce.UI
             }
         }
         #endregion
+
+        private string _aircraftDataSourceFile = "Airforce.DMock.dll";
+        public string AircraftDataSourceFile
+        {
+            get { return _aircraftDataSourceFile; }
+            set
+            {
+                _aircraftDataSourceFile = value;
+                OnPropertyChanged(nameof(AircraftDataSourceFile));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

@@ -15,8 +15,17 @@ namespace Alesik.Haidov.Airforce.DBSQL
 
         public IAircraft ToIAircraft(List<AirbaseDBSQL> airbases)
         {
-            return new Aircraft() { GUID = GUID, Model = Model, ServiceHours = ServiceHours, Type = Type, Airbase = airbases.Single(airbase => airbase.GUID.Equals(AirbaseGUID)).ToIAirbase()};
+            var airbase = airbases.SingleOrDefault(airbase => airbase.GUID.Equals(AirbaseGUID));
+            return new Aircraft()
+            {
+                GUID = GUID,
+                Model = Model,
+                ServiceHours = ServiceHours,
+                Type = Type,
+                Airbase = airbase?.ToIAirbase()
+            };
         }
+
     }
     class Aircraft : IAircraft
     {

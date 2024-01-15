@@ -11,7 +11,6 @@ namespace Alesik.Haidov.Airforce.Web.Services
     {
         private readonly BLC.BLC _blc;
 
-        public AirbaseService(BLC.BLC blc, string dataSource)
         {
             _blc = blc;
             _blc.LoadDatasource(dataSource);

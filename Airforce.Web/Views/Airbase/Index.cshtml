@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Alesik.Haidov.Airforce.Web.Models.Airbase>
+
+@{
+    Layout = "_Layout";
+}
+
+<h2 class="mb-3">Airbase List</h2>
+
+<table class="table table-bordered table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>GUID</th>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var airbase in Model)
+        {
+            <tr>
+                <td>@airbase.GUID</td>
+                <td>@airbase.Name</td>
+                <td>@airbase.Location</td>
+                <td>
+                    <a href="@Url.Action("Details", "Airbase", new { id = airbase.GUID })" class="btn btn-info btn-sm">Details</a>
+                    <a href="@Url.Action("Edit", "Airbase", new { id = airbase.GUID })" class="btn btn-primary btn-sm">Edit</a>
+                    <a href="@Url.Action("Delete", "Airbase", new { id = airbase.GUID })" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Create", "Airbase")" class="btn btn-success">Create New</a>

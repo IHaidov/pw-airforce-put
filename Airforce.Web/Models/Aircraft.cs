@@ -21,7 +21,9 @@ namespace Alesik.Haidov.Airforce.Web.Models
         [Required]
         public AircraftType Type { get; set; }
 
-        [ForeignKey("Airbase.GUID")]
         public IAirbase Airbase { get; set; }
+
+        [ForeignKey("Airbase.GUID")]
+        public string AirbaseGUID { get; set; }
     }
 }

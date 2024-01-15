@@ -1,38 +1,62 @@
 ﻿@model Alesik.Haidov.Airforce.Web.Models.Aircraft
-
 @{
+    ViewBag.Title = "Edit Aircraft";
     Layout = "_Layout";
 }
 
 <h2>Edit Aircraft</h2>
 
-<form asp-action="Edit" method="post">
-    <!-- Specify POST method -->
-    <input type="hidden" asp-for="GUID" />
+@using (Html.BeginForm("Edit", "Aircraft", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.GUID)
+
     <div class="form-group">
-        <label asp-for="Model" class="control-label">Model</label>
-        <input asp-for="Model" class="form-control" value="@Model.Model" />
-        <span asp-validation-for="Model" class="text-danger"></span>
+        @Html.LabelFor(model => model.Model, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Model, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Model, "", new { @class = "text-danger" })
+        </div>
     </div>
+
     <div class="form-group">
-        <label asp-for="ServiceHours" class="control-label">Service Hours</label>
-        <input asp-for="ServiceHours" class="form-control" value="@Model.ServiceHours" />
-        <span asp-validation-for="ServiceHours" class="text-danger"></span>
+        @Html.LabelFor(model => model.ServiceHours, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ServiceHours, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ServiceHours, "", new { @class = "text-danger" })
+        </div>
     </div>
+
     <div class="form-group">
-        <label asp-for="Type" class="control-label">Type</label>
-        <select asp-for="Type" asp-items="ViewBag.Types" class="form-control"></select>
-        <span asp-validation-for="Type" class="text-danger"></span>
+        @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.Type, new SelectList(Enum.GetValues(typeof(Alesik.Haidov.Airforce.Core.AircraftType))),
+        new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+        </div>
+
     </div>
+
+        
+<div class="form-group">
+    @Html.LabelFor(model => model.Airbase, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+            @Html.DropDownListFor(model => model.AirbaseGUID, (SelectList)ViewBag.Airbases, "-- Select Airbase --", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.AirbaseGUID, "", new { @class = "text-danger" })
+</div>
+
+</div>
+
     <div class="form-group">
-        <label asp-for="AirbaseId" class="control-label">Airbase</label>
-        <span asp-validation-for="AirbaseId" class="text-danger"></span>
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
     </div>
-    <div class="form-group">
-        <input type="submit" value="Save" class="btn btn-primary" />
-    </div>
-</form>
+}
 
 <div>
-    <a href="@Url.Action("Index")">Back to List</a>
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
 </div>

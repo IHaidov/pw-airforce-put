@@ -39,8 +39,8 @@ namespace Alesik.Haidov.Airforce.Web.Controllers
             // Assuming your airbase service method returns a list of airbases
             var airbases = _airbaseService.GetAllAirbases();
 
-            ViewData["Airbases"] = new SelectList(airbases, "GUID", "Name");
-            ViewData["Types"] = new SelectList(Enum.GetValues(typeof(AircraftType)), "Value", "Text");
+            ViewData["Types"] = Enum.GetValues(typeof(AircraftType));
+            ViewBag.Airbases = new SelectList(_airbaseService.GetAllAirbases(), "GUID", "Name");
 
             return View();
         }
@@ -50,8 +50,13 @@ namespace Alesik.Haidov.Airforce.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Aircraft aircraft)
         {
-            if (ModelState.IsValid)
+            if (aircraft != null)
             {
+                if (!string.IsNullOrEmpty(aircraft.AirbaseGUID))
+                {
+                    aircraft.Airbase = _airbaseService.GetAirbaseById(aircraft.AirbaseGUID);
+                }
+
                 _aircraftService.CreateOrUpdateAircraft(aircraft);
                 return RedirectToAction(nameof(Index));
             }
@@ -67,10 +72,10 @@ namespace Alesik.Haidov.Airforce.Web.Controllers
                 return NotFound();
             }
 
-            ViewData["Types"] = Enum.GetValues(typeof(AircraftType));
+            aircraft.AirbaseGUID = aircraft.Airbase?.GUID;
 
-            var airbases = _airbaseService.GetAllAirbases();
-            ViewData["Airbases"] = airbases;
+            ViewData["Types"] = Enum.GetValues(typeof(AircraftType));
+            ViewBag.Airbases = new SelectList(_airbaseService.GetAllAirbases(), "GUID", "Name");
 
             return View(aircraft);
         }
@@ -81,13 +86,19 @@ namespace Alesik.Haidov.Airforce.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Aircraft aircraft)
         {
-            if (ModelState.IsValid)
+            if (aircraft != null)
             {
-                _aircraftService.CreateOrUpdateAircraft(aircraft); 
+                if (!string.IsNullOrEmpty(aircraft.AirbaseGUID))
+                {
+                    aircraft.Airbase = _airbaseService.GetAirbaseById(aircraft.AirbaseGUID);
+                }
+
+                _aircraftService.CreateOrUpdateAircraft(aircraft);
                 return RedirectToAction(nameof(Index));
             }
             return View(aircraft);
         }
+
 
 
 

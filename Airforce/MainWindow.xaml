@@ -32,7 +32,7 @@
 
                                 </ComboBox>
                                 <TextBox Margin="5" Padding="4" Name="filterValueTextBox" MinWidth="100"/>
-                                <Button Margin="5" Padding="4" Click="ApplyFilter" Background="AliceBlue">Apply filter</Button>
+                                <Button Margin="5" Padding="4" Click="ApplyFilter" Background="AliceBlue" IsEnabled="{Binding IsBLCAvailable}">Apply filter</Button>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Margin="5" Padding="4">Search by:</TextBlock>
@@ -44,19 +44,19 @@
                                     <ComboBoxItem Content="airbase location" />
                                 </ComboBox>
                                 <TextBox Margin="5" Padding="4" Name="aircraftSearchField" MinWidth="100"/>
-                                <Button Margin="5" Padding="4" Click="ApplyAircraftSearch" Background="AliceBlue">Search</Button>
+                                <Button Margin="5" Padding="4" Click="ApplyAircraftSearch" Background="AliceBlue" IsEnabled="{Binding IsBLCAvailable}">Search</Button>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
                     <!-- CRUD Buttons and Info Panel -->
                     <StackPanel Orientation="Horizontal">
-                        <Button Margin="5,0" Background="LightGreen" Click="AddAircraft" Height="50" Width="100">
+                        <Button Margin="5,0" Background="LightGreen" Click="AddAircraft" Height="50" Width="100" IsEnabled="{Binding IsBLCAvailable}">
                             Add
                         </Button>
-                        <Button Margin="5,0" Background="LightYellow" Click="EditAircraft" Height="50" Width="100">
+                        <Button Margin="5,0" Background="LightYellow" Click="EditAircraft" Height="50" Width="100" IsEnabled="{Binding IsBLCAvailable}">
                             Edit
                         </Button>
-                        <Button Margin="5,0" Background="Red" Click="RemoveAircraft" Height="50" Width="100">
+                        <Button Margin="5,0" Background="Red" Click="RemoveAircraft" Height="50" Width="100" IsEnabled="{Binding IsBLCAvailable}">
                             Remove
                         </Button>
 
@@ -126,7 +126,7 @@
                             <ComboBoxItem Content="airbase location" />
                         </ComboBox>
                         <TextBox Margin="5" Padding="2" Name="airbasefilterValueTextBox" MinWidth="100"/>
-                        <Button Margin="5" Padding="2" Click="AirbaseApplyFilter">Apply filter</Button>
+                        <Button Margin="5" Padding="2" Click="AirbaseApplyFilter" IsEnabled="{Binding IsBLCAvailable}">Apply filter</Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="5" Padding="2">Search by:</TextBlock>
@@ -135,15 +135,15 @@
                             <ComboBoxItem Content="airbase location" />
                         </ComboBox>
                         <TextBox Margin="5" Padding="2" Name="airbaseSearchField" MinWidth="100"/>
-                        <Button Margin="5" Padding="2" Click="ApplyAirbaseSearch">Search</Button>
+                        <Button Margin="5" Padding="2" Click="ApplyAirbaseSearch" IsEnabled="{Binding IsBLCAvailable}">Search</Button>
                     </StackPanel>
 
 
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Orientation="Horizontal">
-                            <Button Margin="5,0" Background="LightGreen" Click="AddAirbase" Height="50" Width="100">Add</Button>
-                            <Button Margin="5,0" Background="LightYellow" Click="EditAirbase" Height="50" Width="100">Edit</Button>
-                            <Button Margin="5,0" Background="Red" Click="RemoveAirbase" Height="50" Width="100">Remove</Button>
+                            <Button Margin="5,0" Background="LightGreen" Click="AddAirbase" Height="50" Width="100" IsEnabled="{Binding IsBLCAvailable}">Add</Button>
+                            <Button Margin="5,0" Background="LightYellow" Click="EditAirbase" Height="50" Width="100" IsEnabled="{Binding IsBLCAvailable}">Edit</Button>
+                            <Button Margin="5,0" Background="Red" Click="RemoveAirbase" Height="50" Width="100" IsEnabled="{Binding IsBLCAvailable}">Remove</Button>
                         </StackPanel>
 
 

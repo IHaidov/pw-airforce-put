@@ -34,6 +34,7 @@ namespace Alesik.Haidov.Airforce.UI
         private ViewModels.AircraftViewModel selectedAircraft = null;
 
         private readonly BL.BLC blc;
+        private bool _isBLCAvailable = false;
 
 
         public MainWindow()
@@ -43,13 +44,14 @@ namespace Alesik.Haidov.Airforce.UI
             if (File.Exists(AircraftDataSourceFile))
             {
                 blc = new BL.BLC(AircraftDataSourceFile);
-
+                IsBLCAvailable = true;
                 AirbaseLVM.RefreshList(blc.GetAllAirbases().Distinct());
                 AircraftLVM.RefreshList(blc.GetAllAircrafts());
             }
             else
             {
                 blc = new BL.BLC();
+                IsBLCAvailable = false;
             }
         }
 
@@ -59,6 +61,7 @@ namespace Alesik.Haidov.Airforce.UI
             {
                 if (File.Exists(AircraftDataSourceFile))
                 {
+                    IsBLCAvailable = true;
                     blc.LoadDatasource(AircraftDataSourceFile);
                     AircraftLVM.RefreshList(blc.GetAllAircrafts());
                     AirbaseLVM.RefreshList(blc.GetAllAirbases());
@@ -84,25 +87,20 @@ namespace Alesik.Haidov.Airforce.UI
         #region Filters
         private void ApplyAircraftSearch(object sender, RoutedEventArgs e)
         {
-            // First, determine the selected filter type from the ComboBox.
             var selectedFilter = searchTypeComboBox.SelectedItem as ComboBoxItem;
 
             if (selectedFilter == null)
             {
-                // Handle the case where no filter is selected, if necessary.
                 AircraftLVM.RefreshList(blc.GetAllAircrafts());
             }
 
-            // Retrieve the filter value entered by the user.
             string filterValue = aircraftSearchField.Text;
 
             if (string.IsNullOrWhiteSpace(filterValue))
             {
-                // Handle the case where the filter value is empty, if necessary.
                 AircraftLVM.RefreshList(blc.GetAllAircrafts());
             }
 
-            // Apply the filter based on the selected filter type.
             switch (selectedFilter.Content.ToString())
             {
                 case "service hours":
@@ -121,7 +119,6 @@ namespace Alesik.Haidov.Airforce.UI
                     FilterByAirbasesLocation(filterValue);
                     break;
                 default:
-                    // Handle unexpected filter type, if necessary.
                     MessageBox.Show("Unknown filter type selected.");
                     break;
             }
@@ -519,7 +516,7 @@ namespace Alesik.Haidov.Airforce.UI
         }
         #endregion
 
-        private string _aircraftDataSourceFile = "Airforce.DMock.dll";
+        private string _aircraftDataSourceFile = "...";
         public string AircraftDataSourceFile
         {
             get { return _aircraftDataSourceFile; }
@@ -536,5 +533,19 @@ namespace Alesik.Haidov.Airforce.UI
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public bool IsBLCAvailable
+        {
+            get { return _isBLCAvailable; }
+            set
+            {
+                if (_isBLCAvailable != value)
+                {
+                    _isBLCAvailable = value;
+                    OnPropertyChanged(nameof(IsBLCAvailable));
+                }
+            }
+        }
+
     }
 }

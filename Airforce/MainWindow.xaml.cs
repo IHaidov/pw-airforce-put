@@ -15,10 +15,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BL = Alesik.Haidov.Airforce.BLC;
-using Alesik.Haidov.Airforce.DBMock;
 using Microsoft.Win32;
 using System.ComponentModel;
 using System.IO;
+using Alesik.Haidov.Airforce.UI.Models;
 
 namespace Alesik.Haidov.Airforce.UI
 {
@@ -362,7 +362,7 @@ namespace Alesik.Haidov.Airforce.UI
 
                 if (aircraftEditDialog.ShowDialog() == true)
                 {
-                    blc.CreateOrUpdateAircraft(new AircraftDBMock()
+                    blc.CreateOrUpdateAircraft(new Aircraft()
                     {
                         GUID = selectedAircraft.AircraftGUID,
                         Model = aircraftEditDialog.AircraftModel,
@@ -402,10 +402,10 @@ namespace Alesik.Haidov.Airforce.UI
 
             if (aircraftInputDialog.ShowDialog() == true)
             {
-                DBMock.AircraftDBMock aircraft;
+                Aircraft aircraft;
                 try
                 {
-                    aircraft = new AircraftDBMock()
+                    aircraft = new Aircraft()
                     {
                         Model = aircraftInputDialog.AircraftModel,
                         Airbase = blc.GetAirbaseByName(aircraftInputDialog.Airbase).First(),
@@ -455,10 +455,10 @@ namespace Alesik.Haidov.Airforce.UI
 
             if (airbaseDialog.ShowDialog() == true)
             {
-                DBMock.AirbaseDBMock airbase;
+                Airbase airbase;
                 try
                 {
-                    airbase = new AirbaseDBMock()
+                    airbase = new Airbase()
                     {
                         Name = airbaseDialog.AirbaseName,
                         Location = airbaseDialog.AirbaseLocation
@@ -498,7 +498,7 @@ namespace Alesik.Haidov.Airforce.UI
 
                 if (airbaseDialog.ShowDialog() == true)
                 {
-                    blc.CreateOrUpdateAirbase(new AirbaseDBMock()
+                    blc.CreateOrUpdateAirbase(new Airbase()
                     {
                         GUID = selectedAirbase.AirbaseGUID,
                         Name = airbaseDialog.AirbaseName,
